@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBbSCjeQJuHKJWrlxbXO7CAsxqe1Rfonm4",
+        authDomain: "mj-4-68322.firebaseapp.com",
+        databaseURL: "https://mj-4-68322.firebaseio.com",
+        projectId: "mj-4-68322",
+        storageBucket: "mj-4-68322.appspot.com",
+        messagingSenderId: "1032019494676"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+          <script type="text/javascript">
+          const auth = firebase.auth();
+          auth.onAuthStateChanged(function(user){
+            if(user){
+            var userId= firebase.auth().currentUser.uid;
+            firebase.database().ref('users/'+userId).once('value').then(function(snapshot){
+
+              var type = snapshot.val().type;
+              if (type=="S"){
+                window.location.replace("http://localhost:3000/HomeS")
+              }
+              if (type=="T"){
+                window.location.replace("http://localhost:3000/HomeT")
+              }
+              if (type=="D"){
+                window.location.replace("http://localhost:3000/HomeD")
+              }})}
+              else{
+                window.location.replace("http://localhost:3000/login")
+              }
+
+            })
+          </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  </body>
+</html>
