@@ -6,9 +6,16 @@ firebase.auth().onAuthStateChanged(function(user){
     location.replace("http://localhost:3000/login");
   }
 })
-var logoutBtn=document.getElementById('logoutBtn');
+const logoutBtn=document.getElementById('logoutBtn');
 
 logoutBtn.addEventListener('click',function(){
 
   firebase.auth().signOut();
+})
+
+
+const btnAddStudent = document.getElementById('btnAddStudent');
+
+btnAddStudent.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/addStudent")
 })

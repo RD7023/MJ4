@@ -3,7 +3,7 @@ var txtUserLastName = document.getElementById('txtUserLastName')
 var txtEmail = document.getElementById('txtEmail')
 var txtPassword = document.getElementById('txtPassword')
 var btnSubmit= document.getElementById('btnSubmit')
-
+var txtNumberZ = document.getElementById('txtNumberZ')
 
 btnSubmit.addEventListener("click",e=>{
     const email = txtEmail.value;
@@ -12,24 +12,31 @@ btnSubmit.addEventListener("click",e=>{
     var database =firebase.database();
 
     auth.createUserWithEmailAndPassword(email, pass).then(function () {
-      userId=auth.currentUser.uid;
-      userEmail = email;
-      userName = txtUserFirstName.value+" "+txtUserLastName.value;
+      const userId=auth.currentUser.uid;
+      const userEmail = email;
+      const userNumberZ = txtNumberZ.value;
 
-      database.ref('users/'+userId).set({
-        name: userName,
-        email: userEmail,
-        type:"S"
+      var userName = txtUserFirstName.value+" "+txtUserLastName.value;
+
+      database.ref('notRegistratedStudents/'+userNumberZ).once('value').then(function(snapshot){
+        academicUnit = snapshot.val()
       }).then(function(){
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            location.assign("http://localhost:3000/HomeS")
-          }
-        })
-
+        database.ref('users/'+userId).set({
+          name: userName,
+          email: userEmail,
+          numberZ: userNumberZ,
+          department: academicUnit.department,
+          speciality: academicUnit.speciality,
+          group: academicUnit.group,
+          type:"S"
+        }).then(function(){
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              location.assign("http://localhost:3000/HomeS")
+            }
+          })
       })
-
-
+})
 })
 })
 

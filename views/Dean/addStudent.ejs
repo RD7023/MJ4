@@ -2,9 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Sign Up</title>
-
-
+    <title>Add Student</title>
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
       // Initialize Firebase
@@ -17,25 +15,19 @@
         messagingSenderId: "1032019494676"
       };
       firebase.initializeApp(config);
-
     </script>
+
 
   </head>
   <body>
-
-    <input id="txtUserFirstName"  placeholder="Ім'я"><br>
-    <input id="txtUserLastName"  placeholder="Прізвище"><br>
-
-
-    <input id="txtEmail" type="email" placeholder="Емейл"><br>
-    <input id="txtPassword" type="password" placeholder="Пароль"><br>
-    <input id="txtNumberZ"  placeholder="Номер заліковки"><br>
-
-    <button id="btnSubmit">Підтвердити</button>
+    <input id="txtNumberZ" type="text">
+    <input id="txtGroup" type="text">
+    <input id="txtSpeciality" type="text">
+    <input id="txtDepartment" type="text">
+    <button id="btnConfirm">Додати студента</button>
 
 
-<script src="Student/jsS/SignUpS.js">
-
-</script>
+    <script src="Dean/jsD/addStudent.js">
+    </script>
   </body>
 </html>

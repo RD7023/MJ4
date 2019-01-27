@@ -60,14 +60,21 @@ app.get("/login",function(request,response){
 
 //Доми
 app.get("/HomeS",function(request,response){
+  console.log(request.url)
   response.render("Student/HomeS.ejs")
 })
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
+
 app.get("/HomeD",function(request,response){
   response.render("Dean/HomeD.ejs")
 })
+
+app.get("/addStudent",function(request,response){
+  response.render("Dean/addStudent.ejs")
+})
+
 
 app.get("/",function(request,response){
   response.render("Common/determinant.ejs")
