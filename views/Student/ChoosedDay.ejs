@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%=day %></title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBbSCjeQJuHKJWrlxbXO7CAsxqe1Rfonm4",
+        authDomain: "mj-4-68322.firebaseapp.com",
+        databaseURL: "https://mj-4-68322.firebaseio.com",
+        projectId: "mj-4-68322",
+        storageBucket: "mj-4-68322.appspot.com",
+        messagingSenderId: "1032019494676"
+      };
+      firebase.initializeApp(config);
+
+    </script>
+  </head>
+  <body>
+    <h1 id="txtDay"><%=day %></h1><br>
+    <ul>
+     <li id="1"></li>
+     <li id="2"></li>
+     <li id="3"></li>
+     <li id="4"></li>
+     <li id="5"></li>
+     <li id="6"></li>
+    </ul>
+
+    <script src="Student/jsS/ChoosedDay.js">
+    </script>
+  </body>
+</html>

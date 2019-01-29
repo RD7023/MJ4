@@ -58,31 +58,74 @@ app.get("/login",function(request,response){
   response.render("Common/login.ejs")
 })
 
-//Доми
+//Дім Студента
 app.get("/HomeS",function(request,response){
-  console.log(request.url)
   response.render("Student/HomeS.ejs")
 })
+
+//Розклад Студента
+app.get("/ScheduleChooseDay",function(request,response){
+  response.render("Student/ScheduleChooseDay.ejs")
+})
+
+app.get("/Schedule-Monday",function(request,response){
+  const choosedDay ="Monday";
+  response.render("Student/ChoosedDay.ejs",{
+    day: choosedDay
+  })
+
+})
+
+app.get("/Schedule-Tuesday",function(request,response){
+  const choosedDay ="Tuesday";
+  response.render("Student/ChoosedDay.ejs",{
+    day: choosedDay
+  })
+})
+
+app.get("/Schedule-Wednesday",function(request,response){
+  const choosedDay ="Wednesday";
+  response.render("Student/ChoosedDay.ejs",{
+    day: choosedDay
+  })
+})
+
+app.get("/Schedule-Thursday",function(request,response){
+  const choosedDay ="Thursday";
+  response.render("Student/ChoosedDay.ejs",{
+    day: choosedDay
+  })
+})
+
+app.get("/Schedule-Friday",function(request,response){
+  const choosedDay ="Friday";
+  response.render("Student/ChoosedDay.ejs",{
+    day: choosedDay
+  })
+})
+
+//Дім викладача
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
-
+//Дім декана
 app.get("/HomeD",function(request,response){
   response.render("Dean/HomeD.ejs")
 })
-
+//Додати студента
 app.get("/addStudent",function(request,response){
   response.render("Dean/addStudent.ejs")
 })
-
-
-app.get("/",function(request,response){
-  response.render("Common/determinant.ejs")
+//Заповнити розклад
+app.get("/fillSchedule",function(request,response){
+  response.render("Dean/fillSchedule.ejs")
 })
 
 
-
-
+//Визначає куди направити юзера
+app.get("/",function(request,response){
+  response.render("Common/determinant.ejs")
+})
 
 
 

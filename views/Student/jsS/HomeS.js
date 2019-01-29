@@ -6,9 +6,15 @@ firebase.auth().onAuthStateChanged(function(user){
     location.replace("http://localhost:3000/login");
   }
 })
-var logoutBtn=document.getElementById('logoutBtn');
+const logoutBtn=document.getElementById('logoutBtn');
 
 logoutBtn.addEventListener('click',function(){
 
   firebase.auth().signOut();
+})
+
+const btnSchedule = document.getElementById('btnSchedule')
+
+btnSchedule.addEventListener('click',function(){
+  location.assign("http://localhost:3000/ScheduleChooseDay")
 })

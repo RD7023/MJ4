@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Заповнити розклад</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBbSCjeQJuHKJWrlxbXO7CAsxqe1Rfonm4",
+        authDomain: "mj-4-68322.firebaseapp.com",
+        databaseURL: "https://mj-4-68322.firebaseio.com",
+        projectId: "mj-4-68322",
+        storageBucket: "mj-4-68322.appspot.com",
+        messagingSenderId: "1032019494676"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+
+  </head>
+  <body>
+    <h1>Заповнити розклад:</h1>
+    <h2>Введіть факультет, спеціальність, групу:</h2>
+        <input id="txtDepartment" type="text" placeholder="Факультет">
+        <input id="txtSpeciality" type="text" placeholder="Спеціальність">
+        <input id="txtGroup" type="text" placeholder="Група"><br>
+    <h1>Понеділок</h1>
+      <h2>Чисельник</h2>
+        <input class="MonN" type="text"><br>
+        <input class="MonN" type="text"><br>
+        <input class="MonN" type="text"><br>
+        <input class="MonN" type="text"><br>
+        <input class="MonN" type="text"><br>
+        <input class="MonN" type="text"><br>
+      <h2>Знаменник</h2>
+        <input class="MonD" type="text"><br>
+        <input class="MonD" type="text"><br>
+        <input class="MonD" type="text"><br>
+        <input class="MonD" type="text"><br>
+        <input class="MonD" type="text"><br>
+        <input class="MonD" type="text"><br>
+    <h1>Вівторок</h1>
+      <h2>Чисельник</h2>
+        <input class="TueN" type="text"><br>
+        <input class="TueN" type="text"><br>
+        <input class="TueN" type="text"><br>
+        <input class="TueN" type="text"><br>
+        <input class="TueN" type="text"><br>
+        <input class="TueN" type="text"><br>
+      <h2>Знаменник</h2>
+        <input class="TueD" type="text"><br>
+        <input class="TueD" type="text"><br>
+        <input class="TueD" type="text"><br>
+        <input class="TueD" type="text"><br>
+        <input class="TueD" type="text"><br>
+        <input class="TueD" type="text"><br>
+    <h1>Середа</h1>
+      <h2>Чисельник</h2>
+        <input class="WedN" type="text"><br>
+        <input class="WedN" type="text"><br>
+        <input class="WedN" type="text"><br>
+        <input class="WedN" type="text"><br>
+        <input class="WedN" type="text"><br>
+        <input class="WedN" type="text"><br>
+      <h2>Знаменник</h2>
+        <input class="WedD" type="text"><br>
+        <input class="WedD" type="text"><br>
+        <input class="WedD" type="text"><br>
+        <input class="WedD" type="text"><br>
+        <input class="WedD" type="text"><br>
+        <input class="WedD" type="text"><br>
+    <h1>Четвер</h1>
+      <h2>Чисельник</h2>
+        <input class="ThrsN" type="text"><br>
+        <input class="ThrsN" type="text"><br>
+        <input class="ThrsN" type="text"><br>
+        <input class="ThrsN" type="text"><br>
+        <input class="ThrsN" type="text"><br>
+        <input class="ThrsN" type="text"><br>
+      <h2>Знаменник</h2>
+        <input class="ThrsD" type="text"><br>
+        <input class="ThrsD" type="text"><br>
+        <input class="ThrsD" type="text"><br>
+        <input class="ThrsD" type="text"><br>
+        <input class="ThrsD" type="text"><br>
+        <input class="ThrsD" type="text"><br>
+    <h1>П'ятниця</h1>
+      <h2>Чисельник</h2>
+        <input class="FriN" type="text"><br>
+        <input class="FriN" type="text"><br>
+        <input class="FriN" type="text"><br>
+        <input class="FriN" type="text"><br>
+        <input class="FriN" type="text"><br>
+        <input class="FriN" type="text"><br>
+      <h2>Знаменник</h2>
+        <input class="FriD" type="text"><br>
+        <input class="FriD" type="text"><br>
+        <input class="FriD" type="text"><br>
+        <input class="FriD" type="text"><br>
+        <input class="FriD" type="text"><br>
+        <input class="FriD" type="text"><br>
+
+      <button id = "btnConfirm"  type="button" name="button">Підтвердити</button>
+
+
+      <script src="Dean/jsD/fillSchedule.js">
+      </script>
+  </body>
+</html>
