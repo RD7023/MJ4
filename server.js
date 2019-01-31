@@ -104,6 +104,16 @@ app.get("/Schedule-Friday",function(request,response){
   })
 })
 
+//Викладачі студента
+app.get("/TeachersS",function(request,response){
+  response.render("Student/TeachersS.ejs")
+})
+
+//Предмети студента
+app.get("/SubjectsS",function(request,response){
+  response.render("Student/SubjectsS.ejs")
+})
+
 //Дім викладача
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
@@ -115,6 +125,10 @@ app.get("/HomeD",function(request,response){
 //Додати студента
 app.get("/addStudent",function(request,response){
   response.render("Dean/addStudent.ejs")
+})
+//Додати викладача
+app.get("/addTeacher",function(request,response){
+  response.render("Dean/addTeacher.ejs")
 })
 //Заповнити розклад
 app.get("/fillSchedule",function(request,response){

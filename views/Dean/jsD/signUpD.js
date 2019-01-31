@@ -16,7 +16,7 @@ btnSubmit.addEventListener("click",e=>{
       userEmail = email;
       userName = txtUserFirstName.value+" "+txtUserLastName.value;
 
-      database.ref('users/'+userId).set({
+      database.ref('users/deans/'+userId).set({
         name: userName,
         email: userEmail,
         type:"D"

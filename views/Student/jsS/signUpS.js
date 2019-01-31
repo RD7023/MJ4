@@ -21,7 +21,7 @@ btnSubmit.addEventListener("click",e=>{
       database.ref('notRegistratedStudents/'+userNumberZ).once('value').then(function(snapshot){
         academicUnit = snapshot.val()
       }).then(function(){
-        database.ref('users/'+userId).set({
+        database.ref('users/'+"students/"+userId).set({
           name: userName,
           email: userEmail,
           numberZ: userNumberZ,

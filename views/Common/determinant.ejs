@@ -21,27 +21,65 @@
           auth.onAuthStateChanged(function(user){
             if(user){
             var userId= firebase.auth().currentUser.uid;
-            firebase.database().ref('users/'+userId).once('value').then(function(snapshot){
+            // firebase.database().ref('users/'+userId).once('value').then(function(snapshot){
+            //   var type = snapshot.val().type;
+            //   if (type=="S"){
+            //     window.location.replace("http://localhost:3000/HomeS")
+            //   }
+            //   if (type=="T"){
+            //     window.location.replace("http://localhost:3000/HomeT")
+            //   }
+            //   if (type=="D"){
+            //     window.location.replace("http://localhost:3000/HomeD")
+            //   }})}
+            //   else{
+            //     window.location.replace("http://localhost:3000/login")
+            //   }
+            firebase.database().ref('users/'+'students/'+userId).once('value').then(function(snapshot){
+              if(snapshot.val().type == "S")
+              {
+              window.location.replace("http://localhost:3000/HomeS")
+              }
 
-              var type = snapshot.val().type;
-              if (type=="S"){
-                window.location.replace("http://localhost:3000/HomeS")
-              }
-              if (type=="T"){
-                window.location.replace("http://localhost:3000/HomeT")
-              }
-              if (type=="D"){
-                window.location.replace("http://localhost:3000/HomeD")
-              }})}
-              else{
-                window.location.replace("http://localhost:3000/login")
+              })
+            firebase.database().ref('users/'+'teachers/'+userId).once('value').then(function(snapshot){
+              if(snapshot.val().type == "T")
+              {
+              window.location.replace("http://localhost:3000/HomeT")
               }
 
-            })
+              })
+            firebase.database().ref('users/'+'deans/'+userId).once('value').then(function(snapshot){
+              if(snapshot.val().type == "D")
+              {
+              window.location.replace("http://localhost:3000/HomeD")
+              }
+
+              })
+            }
+            else{
+               window.location.replace("http://localhost:3000/login")
+             }
+           })
           </script>
     <meta charset="utf-8">
     <title></title>
   </head>
   <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </body>
 </html>

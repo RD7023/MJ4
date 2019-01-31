@@ -2,7 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Add Student</title>
+    <title>Додати викладача</title>
+
+
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
       // Initialize Firebase
@@ -17,17 +19,19 @@
       firebase.initializeApp(config);
     </script>
 
-
   </head>
   <body>
-    <input id="txtNumberZ" type="text"  placeholder="Заліковка">
-    <input id="txtGroup" type="text" placeholder="Група">
-    <input id="txtSpeciality" type="text" placeholder="Спеціальнішсть">
-    <input id="txtDepartment" type="text" placeholder="Факультет">
-    <button id="btnConfirm">Додати студента</button>
+      <h1>Додати викладача</h1>
 
+      <input id = "txtDepartment" placeholder="Факультет">
+      <input id = "txtLastName" placeholder="Прізвище">
+      <input id = "txtFirstName" placeholder="Ім'я">
+      <input id = "txtFatherName" placeholder="По-батькові">
+      <input id = "txtEmail" placeholder="Емейл">
 
-    <script src="Dean/jsD/addStudent.js">
-    </script>
+      <button id = "btnConfirm">Підтвердити</button>
+
+      <script src="Dean/jsD/addTeacher.js">
+      </script>
   </body>
 </html>

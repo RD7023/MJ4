@@ -1,3 +1,8 @@
+
+
+
+
+
 const txtNumberZ = document.getElementById('txtNumberZ');
 const txtGroup = document.getElementById('txtGroup');
 const txtSpeciality = document.getElementById('txtSpeciality');

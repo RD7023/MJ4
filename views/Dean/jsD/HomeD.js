@@ -16,8 +16,16 @@ logoutBtn.addEventListener('click',function(){
 const btnAddStudent = document.getElementById('btnAddStudent');
 
 btnAddStudent.addEventListener("click",function(){
-  window.location.assign("http://localhost:3000/addStudent")
+    window.location.assign("http://localhost:3000/addStudent")
 })
+
+
+const btnAddTeacher = document.getElementById('btnAddTeacher');
+
+btnAddTeacher.addEventListener("click",function(){
+    window.location.assign("http://localhost:3000/addTeacher")
+})
+
 
 const btnFillSchedule = document.getElementById('btnFillSchedule')
 btnFillSchedule.addEventListener("click",function(){

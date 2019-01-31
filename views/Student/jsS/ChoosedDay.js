@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var speciality;
     var group;
 
-    database.ref("users/"+userId).once('value').then(function(snapshot){
+    database.ref("users/students/"+userId).once('value').then(function(snapshot){
 
       department=snapshot.val().department;
       speciality=snapshot.val().speciality;

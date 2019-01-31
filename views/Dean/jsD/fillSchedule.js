@@ -1,3 +1,5 @@
+
+
 function getElementsArrayValues(array) {
   arrVal=[];
   for(i=0;i<array.length;i++){
