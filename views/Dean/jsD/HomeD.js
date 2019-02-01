@@ -31,3 +31,16 @@ const btnFillSchedule = document.getElementById('btnFillSchedule')
 btnFillSchedule.addEventListener("click",function(){
   window.location.assign("http://localhost:3000/fillSchedule")
 })
+
+const btnAddChair = document.getElementById("btnAddChair")
+
+btnAddChair.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/addChair")
+})
+
+
+const btnDefineSubjects = document.getElementById("btnDefineSubjects")
+
+btnDefineSubjects.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/defineSubjects")
+})

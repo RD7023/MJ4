@@ -134,6 +134,14 @@ app.get("/addTeacher",function(request,response){
 app.get("/fillSchedule",function(request,response){
   response.render("Dean/fillSchedule.ejs")
 })
+//Додати кафедру
+app.get("/addChair",function(request,response){
+  response.render("Dean/addChair.ejs")
+})
+//Визначити список предметів
+app.get("/defineSubjects",function(request,response){
+  response.render("Dean/defineSubjects.ejs")
+})
 
 
 //Визначає куди направити юзера

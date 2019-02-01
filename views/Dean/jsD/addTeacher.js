@@ -1,4 +1,4 @@
-const txtDepartment = document.getElementById('txtDepartment');
+const txtChair = document.getElementById('txtChair');
 const txtLastName = document.getElementById('txtLastName')
 const txtFirstName = document.getElementById('txtFirstName')
 const txtFatherName = document.getElementById('txtFatherName')
@@ -9,7 +9,7 @@ btnConfirm.addEventListener('click',function(){
 
   var database = firebase.database();
 
-  var department = txtDepartment.value;
+  var chair = txtChair.value;
   var lastName = txtLastName.value;
   var firstName = txtFirstName.value;
   var fatherName= txtFatherName.value;
@@ -18,7 +18,9 @@ btnConfirm.addEventListener('click',function(){
   email = email.replace(".","(DOT)")
 
   database.ref('notRegistratedTeachers/'+email).set({
-    department: department,
+    chair: chair,
     name: lastName + " " + firstName + " " +fatherName
+  }).then(function(){
+    database.ref('chairs/'+chair+'/teachers').set({})
   })
 })

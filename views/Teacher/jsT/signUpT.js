@@ -27,6 +27,13 @@ btnSubmit.addEventListener("click",e=>{
             chair: chair,
             type:"T"
           }).then(function(){
+
+
+          database.ref('chairs/'+chair+'/teachers').set({
+            [userName]  :true
+          })
+
+
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
              location.assign("http://localhost:3000/HomeT")
