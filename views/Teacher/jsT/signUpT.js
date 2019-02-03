@@ -29,16 +29,19 @@ btnSubmit.addEventListener("click",e=>{
           }).then(function(){
 
 
-          database.ref('chairs/'+chair+'/teachers').set({
-            [userName]  :true
-          })
-
+          database.ref('chairs/'+chair+'/teachers/'+userName).set({
+            id:userId
+          }).then(function () {
 
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-             location.assign("http://localhost:3000/HomeT")
-            }
-          })});
+                location.assign("http://localhost:3000/HomeT")
+               }
+            })
+          })
+
+
+        });
 
 
         })

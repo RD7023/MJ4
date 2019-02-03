@@ -30,10 +30,14 @@ btnSubmit.addEventListener("click",e=>{
           group: academicUnit.group,
           type:"S"
         }).then(function(){
-          firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-              location.assign("http://localhost:3000/HomeS")
-            }
+          database.ref("departments/"+academicUnit.department+"/"+academicUnit.speciality+"/"+academicUnit.group+"/Students/"+userName).set({
+            id:userId
+          }).then(function(){
+            firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                location.assign("http://localhost:3000/HomeS")
+              }
+            })
           })
       })
 })

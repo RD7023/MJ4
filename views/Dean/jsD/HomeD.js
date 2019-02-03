@@ -44,3 +44,9 @@ const btnDefineSubjects = document.getElementById("btnDefineSubjects")
 btnDefineSubjects.addEventListener("click",function(){
   window.location.assign("http://localhost:3000/defineSubjects")
 })
+
+const btnDefineTeachers = document.getElementById("btnDefineTeachers")
+
+btnDefineTeachers.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/defineTeachers")
+})

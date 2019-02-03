@@ -58,6 +58,16 @@ app.get("/login",function(request,response){
   response.render("Common/login.ejs")
 })
 
+
+
+
+
+
+
+
+
+
+
 //Дім Студента
 app.get("/HomeS",function(request,response){
   response.render("Student/HomeS.ejs")
@@ -108,16 +118,44 @@ app.get("/Schedule-Friday",function(request,response){
 app.get("/TeachersS",function(request,response){
   response.render("Student/TeachersS.ejs")
 })
+//Вибраний викладач студента
+app.get("/ChoosedTeacher",function(request,response){
+
+  response.render("Student/ChoosedTeacher.ejs",{
+  
+  })
+})
+
 
 //Предмети студента
 app.get("/SubjectsS",function(request,response){
   response.render("Student/SubjectsS.ejs")
 })
 
+
+
+
+
+
+
+
+
 //Дім викладача
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
+
+
+
+
+
+
+
+
+
+
+
+
 //Дім декана
 app.get("/HomeD",function(request,response){
   response.render("Dean/HomeD.ejs")
@@ -142,6 +180,16 @@ app.get("/addChair",function(request,response){
 app.get("/defineSubjects",function(request,response){
   response.render("Dean/defineSubjects.ejs")
 })
+//Визначити список викладачів
+app.get("/defineTeachers",function(request,response){
+  response.render("Dean/defineTeachers.ejs")
+})
+
+
+
+
+
+
 
 
 //Визначає куди направити юзера

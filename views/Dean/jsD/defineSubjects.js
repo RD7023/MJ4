@@ -18,19 +18,26 @@ btnAddSubject.addEventListener('click',function(){
     var database = firebase.database();
     var objSubjects = {};
     for(i=1;i<counter+1;i++){
-      val = document.getElementById(i+'').value
-      objSubjects[val]=val;
+      var arrSubChairElements = document.getElementsByClassName(i+'')
+      var currentSubject = arrSubChairElements[0].value;
+      var currentChair = arrSubChairElements[1].value;
+      objSubjects[currentSubject]={chair:currentChair}
+      console.log(objSubjects)
     }
     var department = txtDepartment.value;
     var speciality = txtSpeciality.value;
     var group = txtGroup.value;
     database.ref('departments/'+department+'/'+speciality+"/"+group+'/Subjects').set({
-       list:objSubjects
+      list:objSubjects
     })
   })
 
   var txtSubject = document.createElement('INPUT')
-  txtSubject.setAttribute("id", counter+'');
+  txtSubject.setAttribute("class", counter+'');
+  txtSubject.setAttribute("placeholder",counter+ ".Предмет");
   document.body.appendChild(txtSubject)
-
+  var txtChair = document.createElement('INPUT')
+  txtChair.setAttribute("class", counter+'');
+  txtChair.setAttribute("placeholder",counter+ ".Кафедра");
+  document.body.appendChild(txtChair)
 })

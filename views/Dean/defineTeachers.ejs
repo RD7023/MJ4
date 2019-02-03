@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Визначити викладачів для груп</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBbSCjeQJuHKJWrlxbXO7CAsxqe1Rfonm4",
+        authDomain: "mj-4-68322.firebaseapp.com",
+        databaseURL: "https://mj-4-68322.firebaseio.com",
+        projectId: "mj-4-68322",
+        storageBucket: "mj-4-68322.appspot.com",
+        messagingSenderId: "1032019494676"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+  </head>
+  <body>
+    <h1>Визначити викладачів для груп</h1>
+
+
+    <h2>Введіть факультет, спеціальність, групу:</h2>
+
+    <input id="txtDepartment" type="text" placeholder="Факультет">
+    <input id="txtSpeciality" type="text" placeholder="Спеціальність">
+    <input id="txtGroup" type="text" placeholder="Група"><br><br>
+    <input id="txtSubject" type="text" placeholder="Предмет">
+    <input id="txtLecturesTeacher" type="text" placeholder="Лекції">
+    <input id="txtPracticesTeacher" type="text" placeholder="Практичні">
+
+    <button id = "btnAddTeachers">Додати викладачів</button>
+
+    <script src="Dean/jsD/defineTeachers.js">
+    </script>
+  </body>
+</html>

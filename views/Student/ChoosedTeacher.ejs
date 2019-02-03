@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Викладачі</title>
+    <title>Choosed Teacher</title>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
@@ -16,17 +16,20 @@
         messagingSenderId: "1032019494676"
       };
       firebase.initializeApp(config);
+
     </script>
+
 
   </head>
   <body>
-    <h1>Викладачі</h1>
-    <div id="Teachers">
 
-    </div>
+    <h1 id = teacherName></h1>
+    <input id = "numbMark" type="number" placeholder="Оцінка">
+    <button id = "btnConfirm" type="button">Підтвердити оцінку</button><br>
+    <h2>Рейтинг :</h2>
+    <p id="rating"></p>
 
-
-  <script src="Student/jsS/Teachers.js">
-  </script>
+    <script src="Student/jsS/ChoosedTeacher.js">
+    </script>
   </body>
 </html>
