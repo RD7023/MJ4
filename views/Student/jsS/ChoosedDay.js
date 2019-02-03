@@ -10,6 +10,19 @@ function isNumerator() {
   }
   }
 
+function convertToKeyLecturePractice(key){
+  if(key==='Лекція'){
+
+    return 'lecturesTeacher';
+  }
+  if(key==='Практика'){
+
+    return 'practicesTeacher';
+  }
+
+
+}
+
 
 
 
@@ -17,12 +30,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if(user){
     const day = window.location.href.split("-")[1]
 
-    const p1 = document.getElementById('1')
-    const p2 = document.getElementById('2')
-    const p3 = document.getElementById('3')
-    const p4 = document.getElementById('4')
-    const p5 = document.getElementById('5')
-    const p6 = document.getElementById('6')
+
 
     database=firebase.database();
     console.log(firebase.auth().currentUser.uid);
@@ -40,26 +48,53 @@ firebase.auth().onAuthStateChanged(function(user) {
       console.log(group);
       if(isNumerator()){
         database.ref("departments/"+department+"/"+speciality+"/"+group+"/Schedule/"+day+"/Numerator").once("value").then(function(snapshot){
-            p1.innerHTML=snapshot.val()[0]
-            p2.innerHTML=snapshot.val()[1]
-            p3.innerHTML=snapshot.val()[2]
-            p4.innerHTML=snapshot.val()[3]
-            p5.innerHTML=snapshot.val()[4]
-            p6.innerHTML=snapshot.val()[5]
-        })
+            database.ref("departments/"+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
+
+
+              console.log(snapshot2.val())
+
+              for (var i = 0; i < 6; i++) {
+                if(snapshot.val()[i]){
+                  j=i+1
+                  p=document.getElementById(j+"")
+                  p.innerHTML=snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
+
+                }
+              }
+
+
+
+                })
+            })
+
+
+
+
+
+
+
+
+
       }
       else{
         database.ref("departments/"+department+"/"+speciality+"/"+group+"/Schedule/"+day+"/Denominator").once("value").then(function(snapshot){
-          p1.innerHTML=snapshot.val()[0]
-          p2.innerHTML=snapshot.val()[1]
-          p3.innerHTML=snapshot.val()[2]
-          p4.innerHTML=snapshot.val()[3]
-          p5.innerHTML=snapshot.val()[4]
-          p6.innerHTML=snapshot.val()[5]
-        })
+          database.ref("departments/"+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
+
+
+            console.log(snapshot2.val())
+
+            for (var i = 0; i < 6; i++) {
+              if(snapshot.val()[i]){
+                j=i+1
+                p=document.getElementById(j+"")
+                p.innerHTML=snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
+
+              }
+            }
       }
-    })
+    )}
 
-  }
+  )
 
-})
+}
+})}})

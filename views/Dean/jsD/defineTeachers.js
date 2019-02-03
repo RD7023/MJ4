@@ -16,7 +16,7 @@ btnAddTeachers.addEventListener('click',function(){
   var practicesTeacher= txtPracticesTeacher.value
 
   var database = firebase.database();
-  database.ref('departments/'+department+"/"+speciality+"/"+group+"/Subjects/list/"+subject+"/teachers").set({
+  database.ref('departments/'+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list/"+subject+"/teachers").set({
     lecturesTeacher:lecturesTeacher,
     practicesTeacher: practicesTeacher
   }).then(function(){
@@ -25,7 +25,7 @@ btnAddTeachers.addEventListener('click',function(){
     txtPracticesTeacher.value = "";
     var chair;
 
-    database.ref('departments/'+department+"/"+speciality+"/"+group+"/Subjects/list/"+subject).once('value').then(function(snapshot){
+    database.ref('departments/'+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list/"+subject).once('value').then(function(snapshot){
       chair = snapshot.val().chair
       console.log(chair);
     }).then(function(){

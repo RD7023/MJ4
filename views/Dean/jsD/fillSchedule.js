@@ -51,7 +51,11 @@ btnConfirm.addEventListener("click",function(){
   const speciality = document.getElementById('txtSpeciality').value;
   const group = document.getElementById('txtGroup').value;
 
-  database.ref("departments/"+department+"/"+speciality+"/"+group).set({
-    Schedule: objSched
+  database.ref("departments/"+department+"/"+speciality+"/"+group+"/Schedule").set({
+    Monday: objSched.Monday,
+    Tuesday: objSched.Tuesday,
+    Wednesday: objSched.Wednesday,
+    Thursday: objSched.Thursday,
+    Friday: objSched.Friday
   })
 })
