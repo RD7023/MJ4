@@ -47,8 +47,8 @@ firebase.auth().onAuthStateChanged(function(user) {
       group=snapshot.val().group;
       console.log(group);
       if(isNumerator()){
-        database.ref("departments/"+department+"/"+speciality+"/"+group+"/Schedule/"+day+"/Numerator").once("value").then(function(snapshot){
-            database.ref("departments/"+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
+        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+day+"/Numerator").once("value").then(function(snapshot){
+            database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
 
 
               console.log(snapshot2.val())
@@ -77,8 +77,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
       }
       else{
-        database.ref("departments/"+department+"/"+speciality+"/"+group+"/Schedule/"+day+"/Denominator").once("value").then(function(snapshot){
-          database.ref("departments/"+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
+        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+day+"/Denominator").once("value").then(function(snapshot){
+          database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
 
 
             console.log(snapshot2.val())

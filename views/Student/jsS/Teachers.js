@@ -8,7 +8,13 @@ firebase.auth().onAuthStateChanged(function(user){
        var speciality = snapshot.val().speciality;
        var group = snapshot.val().group;
 
-       firebase.database().ref("departments/"+department+"/"+speciality+"/"+group+"/Teachers").once("value").then(function(snapshot){
+       var btnTopTeachers = document.getElementById('btnTopTeachers')
+       btnTopTeachers.addEventListener('click',function(){
+
+         window.location.assign("http://localhost:3000/TopTeachers?"+department.replace(" ","_"))
+       })
+
+       firebase.database().ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Teachers").once("value").then(function(snapshot){
          var teachersDiv = document.getElementById("Teachers");
          var counter = 0;
          for (var key in snapshot.val())
@@ -31,7 +37,8 @@ firebase.auth().onAuthStateChanged(function(user){
           if(event.currentTarget!==event.target)
           {
             console.log(event.target.id);
-            window.location.assign('http://localhost:3000/ChoosedTeacher?teacherId='+event.target.id)
+            department =department.replace(" ","_")
+            window.location.assign('http://localhost:3000/ChoosedTeacher?teacherId='+event.target.id+'&department='+department.replace(" ","_"))
           }
           event.stopPropagation();
         })

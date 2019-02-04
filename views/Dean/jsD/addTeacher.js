@@ -20,7 +20,5 @@ btnConfirm.addEventListener('click',function(){
   database.ref('notRegistratedTeachers/'+email).set({
     chair: chair,
     name: lastName + " " + firstName + " " +fatherName
-  }).then(function(){
-    database.ref('chairs/'+chair+'/teachers').set({})
   })
 })

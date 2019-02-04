@@ -1,5 +1,8 @@
-var teacherId = window.location.href.split("?")[1].split("=")[1]
-
+//Отримуємо Id викладача через стрічку запиту
+var teacherId = window.location.href.split("?")[1].split("&")[0].split("=")[1]
+//Отримуємо факультет через стрічку запиту
+var department = decodeURIComponent(window.location.href.split("?")[1].split("&")[1].split("=")[1].replace("_"," "))
+console.log(department);
 console.log(teacherId);
 var database = firebase.database();
 
@@ -8,7 +11,12 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
   var teacherNameElement = document.getElementById('teacherName');
   teacherNameElement.innerText = teacherName;
   var teacherRating = document.getElementById('rating');
-  var teacherRatingVal = snapshot.val().rating.allTime.point;
+  if (snapshot.val().rating) {
+    var teacherRatingVal = snapshot.val().rating.allTime.point;
+
+  }else{
+  var teacherRatingVal ="";
+  }
   teacherRating.innerText = teacherRatingVal;
 
   var btnConfirm = document.getElementById('btnConfirm');
@@ -34,18 +42,29 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
       if (actualAllTimeObj){
       newAllTimeObj.numberVoices = 1+parseInt(actualAllTimeObj.numberVoices)
       newAllTimeObj.numberStars = parseInt(mark)+parseInt(actualAllTimeObj.numberStars)
+      //збереження значення оцінки для запису в department->teachers
       newAllTimeObj.point = newAllTimeObj.numberStars/newAllTimeObj.numberVoices;
+      mark = newAllTimeObj.point;
       teacherRatingVal= newAllTimeObj.point;
       }
       else {
         newAllTimeObj.numberVoices = 1
         newAllTimeObj.numberStars = parseInt(mark)
-        newAllTimeObj.point=parseInt(mark)
+        newAllTimeObj.point=parseFloat(mark)
+        //збереження значення оцінки для запису в department->teachers
+        mark  = parseInt(mark)
         teacherRatingVal= newAllTimeObj.point;
       }
       return newAllTimeObj;
     }).then(function(){
       teacherRating.innerText = teacherRatingVal;
+
+      database.ref('departments/'+department+'/teachers/'+teacherName).update({
+        allTimeRating:  mark*(-1)
+
+      }).then(function() {
+        console.log(23);
+      })
     })
 
   })

@@ -101,7 +101,6 @@ app.get("/Schedule-Wednesday",function(request,response){
 })
 
 app.get("/Schedule-Thursday",function(request,response){
-  const choosedDay ="Thursday";
   response.render("Student/ChoosedDay.ejs",{
     day: choosedDay
   })
@@ -121,11 +120,12 @@ app.get("/TeachersS",function(request,response){
 //Вибраний викладач студента
 app.get("/ChoosedTeacher",function(request,response){
 
-  response.render("Student/ChoosedTeacher.ejs",{
-  
-  })
+  response.render("Student/ChoosedTeacher.ejs")
 })
-
+//Tоп викладачів студента
+app.get("/TopTeachers",function(request,response){
+  response.render("Student/TopTeachers.ejs")
+})
 
 //Предмети студента
 app.get("/SubjectsS",function(request,response){

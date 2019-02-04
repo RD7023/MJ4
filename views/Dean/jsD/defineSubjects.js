@@ -27,7 +27,7 @@ btnAddSubject.addEventListener('click',function(){
     var department = txtDepartment.value;
     var speciality = txtSpeciality.value;
     var group = txtGroup.value;
-    database.ref('departments/'+department+'/'+speciality+"/"+group+'/SubjectsForSchedule').set({
+    database.ref('departments/'+department+'/specialities/'+speciality+"/groups/"+group+'/SubjectsForSchedule').set({
       list:objSubjects
     })
   })

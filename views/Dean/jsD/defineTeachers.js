@@ -16,16 +16,17 @@ btnAddTeachers.addEventListener('click',function(){
   var practicesTeacher= txtPracticesTeacher.value
 
   var database = firebase.database();
-  database.ref('departments/'+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list/"+subject+"/teachers").set({
+  database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list/"+subject+"/teachers").set({
     lecturesTeacher:lecturesTeacher,
     practicesTeacher: practicesTeacher
   }).then(function(){
+    console.log(23)
     txtSubject.value = "";
     txtLecturesTeacher.value = "";
     txtPracticesTeacher.value = "";
     var chair;
 
-    database.ref('departments/'+department+"/"+speciality+"/"+group+"/SubjectsForSchedule/list/"+subject).once('value').then(function(snapshot){
+    database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list/"+subject).once('value').then(function(snapshot){
       chair = snapshot.val().chair
       console.log(chair);
     }).then(function(){
@@ -41,8 +42,12 @@ btnAddTeachers.addEventListener('click',function(){
         database.ref('users/teachers/'+lecturesTeacherId+"/subjects/"+subject+"/academicUnits").set({
           [academicUnit]:true
         }).then(function(){
-          database.ref('departments/'+department+"/"+speciality+"/"+group+"/Teachers/"+lecturesTeacher).set({
+          database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Teachers/"+lecturesTeacher).set({
               id:lecturesTeacherId
+          }).then(function(){
+            database.ref('departments/'+department+"/teachers/"+lecturesTeacher).set({
+              id:lecturesTeacherId
+            })
           })
         })
       })
@@ -55,8 +60,12 @@ btnAddTeachers.addEventListener('click',function(){
             database.ref('users/teachers/'+practicesTeacherId+"/subjects/"+subject+"/academicUnits").set({
               [academicUnit]:true
             }).then(function(){
-              database.ref('departments/'+department+"/"+speciality+"/"+group+"/Teachers/"+practicesTeacher).set({
+              database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Teachers/"+practicesTeacher).set({
                   id:practicesTeacherId
+              }).then(function(){
+                database.ref('departments/'+department+"/teachers/"+practicesTeacher).set({
+                  id:practicesTeacherId
+                })
               })
           })
      })

@@ -30,7 +30,7 @@ btnSubmit.addEventListener("click",e=>{
           group: academicUnit.group,
           type:"S"
         }).then(function(){
-          database.ref("departments/"+academicUnit.department+"/"+academicUnit.speciality+"/"+academicUnit.group+"/Students/"+userName).set({
+          database.ref("departments/"+academicUnit.department+"/specialities/"+academicUnit.speciality+"/groups/"+academicUnit.group+"/Students/"+userName).set({
             id:userId
           }).then(function(){
             firebase.auth().onAuthStateChanged(function(user) {
