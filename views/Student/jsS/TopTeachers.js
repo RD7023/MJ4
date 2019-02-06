@@ -12,19 +12,3 @@ var database = firebase.database();
    p.appendChild(text)
    div.appendChild(p)
  })
-
- // database.ref("departments/"+department+"/teachers").on("child_moved",function(snapshot){
- //  var div = document.getElementById('block')
- //  var i =1;
- //  for (var key in snapshot.val()) {
- //    if (snapshot.val().hasOwnProperty(key)) {
- //      console.log(key)
- //
- //      p = document.createElement("p")
- //      text = document.createTextNode(i+")"+key+" - "+snapshot.val()[key]["allTimeRating"])
- //      i++;
- //      p.appendChild(text)
- //      div.appendChild(p)
- //    }
-  // }
-  // })

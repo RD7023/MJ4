@@ -1,0 +1,55 @@
+//Отримуємо інформацію з стрічки запиту
+var arrInfo = window.location.href.split("?")[1].split("&")
+var subject = decodeURIComponent(arrInfo[0].split('=')[1])
+var group = decodeURIComponent(arrInfo[1].split('=')[1])
+var speciality = decodeURIComponent(arrInfo[2].split('=')[1])
+var department = decodeURIComponent(arrInfo[3].split('=')[1])
+
+var div = document.getElementById('Tasks')
+
+var database = firebase.database()
+database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Subjects/"+subject+"/tasks").once('value').then(function(snapshot){
+  var objTasks = snapshot.val()
+  for (var key in objTasks) {
+    if (objTasks.hasOwnProperty(key)) {
+      var task = document.createElement('p')
+      var textTask = document.createTextNode(key.replace("|"," ")+" | "+objTasks[key].title)
+      task.setAttribute('id',key)
+      task.appendChild(textTask)
+      div.appendChild(task)
+    }
+  }
+})
+
+div.addEventListener('click',function(){
+  if(event.currentTarget!==event.target){
+    var taskId = event.target.id;
+    location.assign('http://localhost:3000/ChoosedTask?taskId='+taskId+'&subject='+subject+'&group='+group+'&speciality='+speciality+'&department='+department)
+  }
+  event.stopPropagation()
+})
+
+
+//Розкоментувати коли буде можливіть для вчителя додавати оголошення
+// var div2 = document.getElementById('Announcements')
+//
+// var database = firebase.database()
+// database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Subjects/"+subject+"/announcements").once('value').then(function(snapshot){
+//   var objAnn = snapshot.val()
+//   for (var key in objAnn) {
+//     if (objAnn.hasOwnProperty(key)) {
+//       var ann = document.createElement('p')
+//       var textAnn = document.createTextNode(key.replace("|"," ")+" | "+objAnn[key].title)
+//       var br = document.createElement('br')
+//       ann.setAttribute('id',key)
+//       ann.appendChild(textAnn)
+//       div2.appendChild(ann)
+//       div2.append(br)
+//     }
+//   }
+// })
+
+
+const btnTasks = document.getElementById('btnTasks')
+btnTasks.addEventListener('click',function(){
+})

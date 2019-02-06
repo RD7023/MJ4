@@ -12,3 +12,9 @@ logoutBtn.addEventListener('click',function(){
 
   firebase.auth().signOut();
 })
+
+var btnSubjects = document.getElementById('btnSubjects')
+
+btnSubjects.addEventListener('click',function(){
+  document.location.assign("http://localhost:3000/SubjectsT")
+})

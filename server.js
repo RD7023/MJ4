@@ -101,6 +101,7 @@ app.get("/Schedule-Wednesday",function(request,response){
 })
 
 app.get("/Schedule-Thursday",function(request,response){
+  const choosedDay ="Thursday";
   response.render("Student/ChoosedDay.ejs",{
     day: choosedDay
   })
@@ -131,6 +132,21 @@ app.get("/TopTeachers",function(request,response){
 app.get("/SubjectsS",function(request,response){
   response.render("Student/SubjectsS.ejs")
 })
+//Вибраний предмет студента
+app.get("/ChoosedSubject",function(request,response){
+  var sbjName = request.query.subjectName;
+  response.render("Student/ChoosedSubject.ejs",{
+    subjectName:sbjName
+  })
+})
+//Вибране завдання студента
+app.get("/ChoosedTask",function(request,response){
+  var sbjName = request.query.subject;
+  response.render("Student/ChoosedTask.ejs",{
+    subject:sbjName
+  })
+})
+
 
 
 
@@ -144,9 +160,45 @@ app.get("/SubjectsS",function(request,response){
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
-
-
-
+//Предмети викладача
+app.get("/SubjectsT",function(request,response){
+  response.render("Teacher/SubjectsT.ejs")
+})
+//Вибраний предмет викладача
+app.get("/ChoosedSubjectT",function(request,response){
+  var subjectName = request.query.choosedSubject;
+  var academicUnit = request.query.academicUnit;
+  response.render("Teacher/ChoosedSubjectT.ejs",{
+    subjectName:subjectName,
+    academicUnit:academicUnit
+  })
+})
+//Вибраний предмет викладача => надати завдання
+app.get("/GiveTaskT",function(request,response){
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/GiveTaskT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department
+  })
+})
+//Вибраний предмет викладача => залишити оголошення
+app.get("/LeftAnnT",function(request,response){
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/LeftAnnT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department
+  })
+})
 
 
 

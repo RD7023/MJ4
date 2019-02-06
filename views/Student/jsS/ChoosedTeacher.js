@@ -57,11 +57,11 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
       }
       return newAllTimeObj;
     }).then(function(){
-      teacherRating.innerText = teacherRatingVal;
+      teacherRating.innerText = (Math.round(10*teacherRatingVal))/10;
 
       database.ref('departments/'+department+'/teachers/'+teacherName).update({
-        allTimeRating:  mark*(-1)
 
+        allTimeRating:  mark*(-1)
       }).then(function() {
         console.log(23);
       })

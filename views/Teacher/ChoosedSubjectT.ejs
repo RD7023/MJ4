@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Предмети</title>
+    <title><%=subjectName %></title>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
@@ -16,14 +16,18 @@
         messagingSenderId: "1032019494676"
       };
       firebase.initializeApp(config);
+
     </script>
+
   </head>
   <body>
-    <h1>Предмети</h1>
-    <div id="block">
-    </div>
-
-  <script src="Student/jsS/Subjects.js">
-  </script>
+    <h1><%=subjectName %></h1>
+    <h2><%=academicUnit %></h2>
+    <button id = "btnDefineMarksStructure" type="button" name="button">Визначити структуру оцінок</button>
+    <button id = "btnGiveTask" type="button" name="button">Дати завдання</button>
+    <button id = "btnLeftAnn" type="button" name="button">Залишити оголошення</button>
+    <button id = "btnSetMarks" type="button" name="button">Поставити оцінку</button>
+    <script src="Teacher/jsT/ChoosedSubjectT.js">
+    </script>
   </body>
 </html>
