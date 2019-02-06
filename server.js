@@ -147,6 +147,13 @@ app.get("/ChoosedTask",function(request,response){
   })
 })
 
+//Вибране оголошення студента
+app.get("/ChoosedAnn",function(request,response){
+  var sbjName = request.query.subject;
+  response.render("Student/ChoosedAnn.ejs",{
+    subject:sbjName
+  })
+})
 
 
 

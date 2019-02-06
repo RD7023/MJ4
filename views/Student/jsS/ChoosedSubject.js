@@ -1,3 +1,5 @@
+document.getElementById("Announcements").style.display = "none";
+
 //Отримуємо інформацію з стрічки запиту
 var arrInfo = window.location.href.split("?")[1].split("&")
 var subject = decodeURIComponent(arrInfo[0].split('=')[1])
@@ -30,26 +32,44 @@ div.addEventListener('click',function(){
 })
 
 
-//Розкоментувати коли буде можливіть для вчителя додавати оголошення
-// var div2 = document.getElementById('Announcements')
-//
-// var database = firebase.database()
-// database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Subjects/"+subject+"/announcements").once('value').then(function(snapshot){
-//   var objAnn = snapshot.val()
-//   for (var key in objAnn) {
-//     if (objAnn.hasOwnProperty(key)) {
-//       var ann = document.createElement('p')
-//       var textAnn = document.createTextNode(key.replace("|"," ")+" | "+objAnn[key].title)
-//       var br = document.createElement('br')
-//       ann.setAttribute('id',key)
-//       ann.appendChild(textAnn)
-//       div2.appendChild(ann)
-//       div2.append(br)
-//     }
-//   }
-// })
+var div2 = document.getElementById('Announcements')
+
+var database = firebase.database()
+database.ref('departments/'+department+"/specialities/"+speciality+"/groups/"+group+"/Subjects/"+subject+"/announcements").once('value').then(function(snapshot){
+  var objAnn = snapshot.val()
+  for (var key in objAnn) {
+    if (objAnn.hasOwnProperty(key)) {
+      var ann = document.createElement('p')
+      var textAnn = document.createTextNode("| "+objAnn[key].title)
+      var br = document.createElement('br')
+      ann.setAttribute('id',key)
+      ann.appendChild(textAnn)
+      div2.appendChild(ann)
+      div2.append(br)
+    }
+  }
+})
+
+
+div2.addEventListener('click',function(){
+  if(event.currentTarget!==event.target){
+    var annId = event.target.id;
+    location.assign('http://localhost:3000/ChoosedAnn?annId='+annId+'&subject='+subject+'&group='+group+'&speciality='+speciality+'&department='+department)
+  }
+  event.stopPropagation()
+})
+
 
 
 const btnTasks = document.getElementById('btnTasks')
 btnTasks.addEventListener('click',function(){
+  document.getElementById("Announcements").style.display = "none";
+  document.getElementById("Tasks").style.display ="block";
+})
+
+
+const btnAnnouncements = document.getElementById('btnAnnouncements')
+btnAnnouncements.addEventListener('click',function(){
+  document.getElementById("Tasks").style.display = "none";
+  document.getElementById("Announcements").style.display = "block";
 })
