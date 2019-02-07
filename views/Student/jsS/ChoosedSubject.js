@@ -77,5 +77,5 @@ btnAnnouncements.addEventListener('click',function(){
 
 const btnMarks = document.getElementById('btnMarks')
 btnMarks.addEventListener('click',function(){
-
+  location.assign('http://localhost:3000/MarksS?subject='+subject)
 })

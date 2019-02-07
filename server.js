@@ -154,6 +154,14 @@ app.get("/ChoosedAnn",function(request,response){
     subject:sbjName
   })
 })
+//Оцінки студента
+app.get("/MarksS",function(request,response){
+  var sbjName = request.query.subject;
+  response.render("Student/MarksS.ejs",{
+    subject:sbjName
+  })
+})
+
 
 
 

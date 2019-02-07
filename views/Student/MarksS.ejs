@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title><%=subjectName%></title>
+    <title>Мої оцінки</title>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
@@ -18,18 +18,17 @@
       firebase.initializeApp(config);
 
     </script>
+
   </head>
   <body>
-    <h1><%=subjectName%></h1>
-    <button id="btnTasks" type="button" name="button">Завдання</button>
-    <button id="btnAnnouncements" type="button" name="button">Оголошення</button>
-    <button id="btnMarks" type="button" name="button">Оцінки</button>
-    <br>
-      <div id="Tasks">
-      </div>
-      <div  id="Announcements">
-      </div>
-    <script src="Student/jsS/ChoosedSubject.js">
+    <h1><%=subject%></h1>
+    <div id=modules>
+    </div>
+    <div id=colloquiums>
+    </div>
+    <div id=exam>
+    </div>
+    <script src="Student/jsS/MarksS.js">
     </script>
   </body>
 </html>
