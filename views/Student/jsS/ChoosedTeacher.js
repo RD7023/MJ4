@@ -17,7 +17,7 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
   }else{
   var teacherRatingVal ="";
   }
-  teacherRating.innerText = teacherRatingVal;
+  teacherRating.innerText = (Math.round(10*teacherRatingVal))/10;
 
   var btnConfirm = document.getElementById('btnConfirm');
   btnConfirm.addEventListener('click',function(){

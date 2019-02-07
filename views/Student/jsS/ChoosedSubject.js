@@ -2,6 +2,7 @@ document.getElementById("Announcements").style.display = "none";
 
 //Отримуємо інформацію з стрічки запиту
 var arrInfo = window.location.href.split("?")[1].split("&")
+
 var subject = decodeURIComponent(arrInfo[0].split('=')[1])
 var group = decodeURIComponent(arrInfo[1].split('=')[1])
 var speciality = decodeURIComponent(arrInfo[2].split('=')[1])
@@ -72,4 +73,9 @@ const btnAnnouncements = document.getElementById('btnAnnouncements')
 btnAnnouncements.addEventListener('click',function(){
   document.getElementById("Tasks").style.display = "none";
   document.getElementById("Announcements").style.display = "block";
+})
+
+const btnMarks = document.getElementById('btnMarks')
+btnMarks.addEventListener('click',function(){
+
 })

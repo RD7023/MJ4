@@ -175,3 +175,11 @@ const btnLeftAnn = document.getElementById('btnLeftAnn')
 btnLeftAnn.addEventListener('click',function(){
   location.assign("http://localhost:3000/LeftAnnT?subject="+subject+"&group="+group+"&speciality="+speciality+"&department="+department)
 })
+
+//
+//ПОСТАВИТИ ОЦІНКУ
+//
+const btnSetMarks = document.getElementById('btnSetMarks')
+btnSetMarks.addEventListener('click',function(){
+  location.assign("http://localhost:3000/SetMarksT?subject="+subject+"&group="+group+"&speciality="+speciality+"&department="+department)
+})

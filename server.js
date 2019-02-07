@@ -206,7 +206,66 @@ app.get("/LeftAnnT",function(request,response){
     department:department
   })
 })
+//Вибраний предмет викладача => залишити оголошення
+app.get("/LeftAnnT",function(request,response){
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/LeftAnnT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department
+  })
+})
+//Вибраний предмет викладача => залишити оголошення
+app.get("/LeftAnnT",function(request,response){
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/LeftAnnT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department
+  })
+})
+//Вибраний предмет викладача => поставити оцінку
+app.get("/SetMarksT",function(request,response){
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/SetMarksT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department
+  })
+})
 
+//Вибраний предмет викладача => поставити оцінку => вибраний вид тестування
+app.get("/ChoosedTestT",function(request,response){
+  var testNumber = Number(request.query.infoToSend.split("|")[1])+1;
+  if(isNaN(testNumber)){
+    var testName = request.query.name
+  }else{
+    var testName = request.query.name + " "+testNumber
+ }
+  var subject = request.query.subject;
+  var group = request.query.group;
+  var speciality = request.query.speciality;
+  var department = request.query.department;
+  response.render("Teacher/ChoosedTestT.ejs",{
+    subject:subject,
+    group:group,
+    speciality:speciality,
+    department:department,
+    testName:testName
+  })
+})
 
 
 
@@ -250,12 +309,10 @@ app.get("/defineTeachers",function(request,response){
 
 
 
-
 //Визначає куди направити юзера
 app.get("/",function(request,response){
   response.render("Common/determinant.ejs")
 })
-
 
 
 app.listen(3000)
