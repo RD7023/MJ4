@@ -19,10 +19,25 @@ function convertToKeyLecturePractice(key){
 
     return 'practicesTeacher';
   }
-
-
 }
+function convertDayToNumber(day) {
 
+  if (day == "Monday") {
+    return 1;
+  }
+  if (day == "Tuesday") {
+    return 2;
+  }
+  if (day == "Wednesday") {
+    return 3;
+  }
+  if (day == "Thursday") {
+    return 4;
+  }
+  if (day == "Friday") {
+    return 5;
+  }
+}
 
 
 
@@ -47,13 +62,13 @@ firebase.auth().onAuthStateChanged(function(user) {
       group=snapshot.val().group;
       console.log(group);
       if(isNumerator()){
-        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+day+"/Numerator").once("value").then(function(snapshot){
+        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+convertDayToNumber(day)+"/Numerator").once("value").then(function(snapshot){
             database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
 
-
+              console.log(23);
               console.log(snapshot2.val())
 
-              for (var i = 0; i < 6; i++) {
+              for (var i = 1; i < 7; i++) {
                 if(snapshot.val()[i]){
                   j=i+1
                   p=document.getElementById(j+"")
@@ -77,13 +92,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 
       }
       else{
-        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+day+"/Denominator").once("value").then(function(snapshot){
+        database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule/"+convertDayToNumber(day)+"/Denominator").once("value").then(function(snapshot){
           database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/SubjectsForSchedule/list").once("value").then(function(snapshot2){
 
-
+            console.log(23);
             console.log(snapshot2.val())
 
-            for (var i = 0; i < 6; i++) {
+            for (var i = 1; i < 7; i++) {
               if(snapshot.val()[i]){
                 j=i+1
                 p=document.getElementById(j+"")

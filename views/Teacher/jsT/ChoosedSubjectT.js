@@ -183,3 +183,228 @@ const btnSetMarks = document.getElementById('btnSetMarks')
 btnSetMarks.addEventListener('click',function(){
   location.assign("http://localhost:3000/SetMarksT?subject="+subject+"&group="+group+"&speciality="+speciality+"&department="+department)
 })
+
+
+//
+//ОЦІНКИ НА ПОПЕРЕДНІЙ КЛАСНІЙ РОБОТІ
+//
+var database = firebase.database()
+var div = document.getElementById('divStudentsList')
+database.ref("term/holidays").once('value').then(function(snapshot){
+  var termBeginning = snapshot.val().lastEnd
+//отримуємо теперішній час
+  var currentDate = new Date()
+  console.log(currentDate);
+//час пари =>потрібний результат
+  var paraDate = new Date()
+
+// отримуємо поточний день
+  var currentDay =currentDate.getDay()
+  console.log(currentDay);
+  if(currentDay<1||currentDay>5)
+  {
+    while(paraDate.getDay()!=5){
+      paraDate.setDate(paraDate.getDate()-1)
+      console.log(paraDate);
+    }
+    currentDay=5
+  }
+  console.log(paraDate);
+//визначення поточної пари
+
+var currenPara;
+//перша пара
+var para1 = new Date()
+para1.setHours(8)
+para1.setMinutes(30)
+//друга пара
+var para2 = new Date()
+para2.setHours(10)
+para2.setMinutes(10)
+//третя пара
+var para3 = new Date()
+para3.setHours(11)
+para3.setMinutes(50)
+//четверта пара
+var para4 = new Date()
+para4.setHours(13)
+para4.setMinutes(30)
+//пята пара
+var para5 = new Date()
+para5.setHours(15)
+para5.setMinutes(5)
+//шоста пара
+var para6 = new Date()
+para6.setHours(16)
+para6.setMinutes(40)
+
+if(currentDate<para1){
+  currentPara = 5
+  currentDay--;
+  paraDate.setDate(paraDate.getDate()-1)
+  console.log(paraDate);
+  if(currentDay<0){
+    currentDay=5
+    while(paraDate.getDay()!=5){
+      paraDate.setDate(paraDate.getDate()-1)
+    }
+  }
+}else if (currentDate<para2) {
+  currentPara=0;
+}else if (currentDate<para3) {
+  currentPara=1;
+}else if (currentDate<para4) {
+  currentPara=2
+}else if (currentDate<para5) {
+  currentPara=3
+}else if (currentDate<para6) {
+  currentPara=4
+}else {
+  currentPara=5
+}
+
+console.log(currentPara);
+
+console.log(paraDate);
+
+
+//Отримуємо тип тижня(чисельник/знаменник)
+  var currentWeek = Math.floor((currentDate -termBeginning)/(7*24*60*60*1000))
+  var typeWeek;
+  if ((currentWeek%2)==0) {
+    typeWeek = "Numerator";
+  }
+  else{
+    typeWeek = "Denominator";
+  }
+  //Шукаємо дату минулої пари
+  database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule").once('value').then(function(snapshot2){
+    var objSchedule = snapshot2.val();
+    bool = true;
+    counter=0;
+
+    console.log(objSchedule[currentDay]);
+    while(bool){
+      if (counter>100) {
+        bool=false
+      }
+      counter++;
+      console.log(currentDay);
+      currentSubject = objSchedule[currentDay][typeWeek][currentPara]
+      if(currentSubject==(subject+"|Практика"))
+        {
+
+          bool=false;
+
+
+
+          console.log(currentPara);
+          console.log(paraDate);
+          console.log(currentWeek);
+          console.log(typeWeek);
+        //Отримуємо порядковий номер пари
+        //Порахуємо кількість пар в чисельнику
+         var counterNumerator=0;
+         var counterDenominator = 0
+         for (var key in objSchedule) {
+           if (objSchedule.hasOwnProperty(key)) {
+             for (var i = 0; i < 6; i++) {
+               if (objSchedule[key]["Numerator"][i]==subject+'|Практика') {
+                 counterNumerator++
+               }
+               if (objSchedule[key]["Denominator"][i]==subject+'|Практика') {
+                 counterDenominator++
+               }
+             }
+           }
+         }
+         console.log(counterNumerator);
+         console.log(counterDenominator);
+
+         var paraNumber = counterNumerator*Math.round(currentWeek/2)+counterDenominator*Math.floor(currentWeek/2)
+         for (var i=1;i<paraDate.getDay(); i++) {
+             for (var j = 0; j < currentPara; j++) {
+               if (objSchedule[i][typeWeek][j]===subject+"|Практика") {
+                 paraNumber++
+               }
+             }
+           }
+          paraNumber++
+          database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Students").once("value").then(function(snapshot3){
+            var objStudents = snapshot3.val()
+
+            //Заголовок до списку студентів
+            var labelParaDate = document.createElement('label')
+            var textParaDate = document.createTextNode(paraDate)
+            var br = document.createElement('br')
+            labelParaDate.appendChild(textParaDate)
+            div.appendChild(labelParaDate)
+            div.appendChild(br)
+
+            //Заповнюємо список
+            for (var key in objStudents) {
+              if (objStudents.hasOwnProperty(key)) {
+                var labelName = document.createElement("label")
+                var textName = document.createTextNode(key)
+                var inputMark = document.createElement('input')
+                var br = document.createElement('br')
+                inputMark.setAttribute('id',objStudents[key]["id"])
+                labelName.appendChild(textName)
+                div.appendChild(labelName)
+                div.appendChild(inputMark)
+                div.appendChild(br)
+              }
+            }
+            //Кнопка підтвердити
+            var btnConfirm = document.createElement('button')
+            var textConfirm = document.createTextNode("Підтвердити")
+            btnConfirm.appendChild(textConfirm)
+            div.appendChild(br)
+            div.appendChild(btnConfirm)
+
+            //Взяти інфу з розкладу
+            btnConfirm.addEventListener('click',function(){
+              paraIndex = paraNumber-1;
+              for (var key in objStudents) {
+                if (objStudents.hasOwnProperty(key)) {
+                  var mark = document.getElementById(objStudents[key]["id"]).value;
+                  database.ref('users/students/'+objStudents[key]["id"]+"/subjects/"+subject+"/marks/classWork/"+paraIndex).set({
+                    studentPoint:mark
+                  })
+                }
+              }
+            })
+
+          })
+          //Ми дістали порядковий номер пари
+          //  paraDate => відкриваєм список студентів => добавляєм всьо шо надо
+        }
+        else{
+          currentPara--;
+          if (currentPara<0) {
+            currentPara=5
+            currentDay--;
+            paraDate.setDate(paraDate.getDate()-1)
+            if (currentDay<1) {
+              if(typeWeek === "Numerator")
+              {
+                currentWeek--;
+                typeWeek = "Denominator"
+              }
+              if(typeWeek === "Denominator")
+              {
+                currentWeek--;
+                typeWeek = "Numerator"
+              }
+              currentDay=5
+              while(paraDate.getDay()!=5){
+                paraDate.setDate(paraDate.getDate()-1)
+              }
+            }
+          }
+
+        }
+    }
+
+  })
+})

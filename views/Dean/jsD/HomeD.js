@@ -50,3 +50,9 @@ const btnDefineTeachers = document.getElementById("btnDefineTeachers")
 btnDefineTeachers.addEventListener("click",function(){
   window.location.assign("http://localhost:3000/defineTeachers")
 })
+
+const btnDefineHollidays = document.getElementById("btnDefineHollidays")
+
+btnDefineHollidays.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/defineHollidays")
+})

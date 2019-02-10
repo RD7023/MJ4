@@ -310,6 +310,10 @@ app.get("/defineSubjects",function(request,response){
 app.get("/defineTeachers",function(request,response){
   response.render("Dean/defineTeachers.ejs")
 })
+//Визначити час канікул
+app.get("/defineHollidays",function(request,response){
+  response.render("Dean/defineHollidays.ejs")
+})
 
 
 
