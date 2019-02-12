@@ -29,7 +29,8 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
       var commentElement = document.createElement("textarea")
       var btnSend = document.createElement("button")
       var textSend = document.createTextNode('Відправити')
-      commentElement.setAttribute("placeholder","Вкажіть причину низької оцінки викладачу")
+      commentElement.setAttribute("placeholder","Вкажіть причину низької оцінки")
+      commentElement.setAttribute("maxlength",500)
       btnSend.appendChild(textSend);
       btnSend.setAttribute("id","btnSend")
       bodyElement.insertBefore(document.createElement('br'),document.getElementById('headerRating'))
@@ -142,8 +143,6 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
 
     }
     //Потрібно додати обмеження на величину оцінки 0<mark<5
-
-
     })
 
   })
