@@ -68,11 +68,11 @@ firebase.auth().onAuthStateChanged(function(user) {
               console.log(23);
               console.log(snapshot2.val())
 
-              for (var i = 1; i < 7; i++) {
+              for (var i = 0; i < 6; i++) {
                 if(snapshot.val()[i]){
                   j=i+1
                   p=document.getElementById(j+"")
-                  p.innerHTML=snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
+                  p.innerHTML=j+snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
 
                 }
               }
@@ -98,11 +98,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             console.log(23);
             console.log(snapshot2.val())
 
-            for (var i = 1; i < 7; i++) {
+            for (var i = 0; i < 6; i++) {
               if(snapshot.val()[i]){
                 j=i+1
                 p=document.getElementById(j+"")
-                p.innerHTML=snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
+                p.innerHTML=j+". "+snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
 
               }
             }
