@@ -175,6 +175,11 @@ app.get("/MarksS",function(request,response){
 app.get("/HomeT",function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
+//Відгуки про викладача
+app.get("/CommentsT",function(request,response){
+  response.render("Teacher/CommentsT.ejs")
+})
+
 //Предмети викладача
 app.get("/SubjectsT",function(request,response){
   response.render("Teacher/SubjectsT.ejs")

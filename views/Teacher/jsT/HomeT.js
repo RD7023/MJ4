@@ -18,3 +18,9 @@ var btnSubjects = document.getElementById('btnSubjects')
 btnSubjects.addEventListener('click',function(){
   document.location.assign("http://localhost:3000/SubjectsT")
 })
+
+var btnComments = document.getElementById('btnComments')
+
+btnComments.addEventListener('click',function(){
+  document.location.assign("http://localhost:3000/CommentsT")
+})
