@@ -41,7 +41,7 @@ database.ref('users/teachers/'+teacherId).once("value").then(function(snapshot){
         var comment = commentElement.value;
         var currentTime = new Date();
 
-        database.ref('users/teachers/'+teacherId+"/comments").push().set({
+        database.ref('commentsTeacher/'+teacherId).push().set({
           rate: mark,
           text:comment,
           time:currentTime.toString()

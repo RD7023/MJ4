@@ -24,3 +24,9 @@ var btnComments = document.getElementById('btnComments')
 btnComments.addEventListener('click',function(){
   document.location.assign("http://localhost:3000/CommentsT")
 })
+
+var btnRatingTeachers = document.getElementById('btnRatingTeachers')
+
+btnRatingTeachers.addEventListener('click',function(){
+  document.location.assign("http://localhost:3000/ChooseDepartmentT")
+})
