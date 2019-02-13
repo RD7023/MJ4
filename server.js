@@ -73,6 +73,25 @@ app.get("/HomeS",function(request,response){
   response.render("Student/HomeS.ejs")
 })
 
+function translateDayToUkrainian(day) {
+
+  if (day == "Monday") {
+    return 'Понеділок';
+  }
+  if (day == "Tuesday") {
+    return 'Вівторок';
+  }
+  if (day == "Wednesday") {
+    return 'Середа';
+  }
+  if (day == "Thursday") {
+    return "Четвер";
+  }
+  if (day == "Friday") {
+    return "П'ятниця";
+  }
+}
+
 //Розклад Студента
 app.get("/ScheduleChooseDay",function(request,response){
   response.render("Student/ScheduleChooseDay.ejs")
@@ -81,7 +100,7 @@ app.get("/ScheduleChooseDay",function(request,response){
 app.get("/Schedule-Monday",function(request,response){
   const choosedDay ="Monday";
   response.render("Student/ChoosedDay.ejs",{
-    day: choosedDay
+    day: translateDayToUkrainian(choosedDay)
   })
 
 })
@@ -89,28 +108,28 @@ app.get("/Schedule-Monday",function(request,response){
 app.get("/Schedule-Tuesday",function(request,response){
   const choosedDay ="Tuesday";
   response.render("Student/ChoosedDay.ejs",{
-    day: choosedDay
+    day: translateDayToUkrainian(choosedDay)
   })
 })
 
 app.get("/Schedule-Wednesday",function(request,response){
   const choosedDay ="Wednesday";
   response.render("Student/ChoosedDay.ejs",{
-    day: choosedDay
+    day: translateDayToUkrainian(choosedDay)
   })
 })
 
 app.get("/Schedule-Thursday",function(request,response){
   const choosedDay ="Thursday";
   response.render("Student/ChoosedDay.ejs",{
-    day: choosedDay
+    day: translateDayToUkrainian(choosedDay)
   })
 })
 
 app.get("/Schedule-Friday",function(request,response){
   const choosedDay ="Friday";
   response.render("Student/ChoosedDay.ejs",{
-    day: choosedDay
+    day: translateDayToUkrainian(choosedDay)
   })
 })
 
@@ -179,6 +198,19 @@ app.get("/HomeT",function(request,response){
 app.get("/CommentsT",function(request,response){
   response.render("Teacher/CommentsT.ejs")
 })
+
+//Рейтинг викладачів =>вибрати факультет
+app.get("/ChooseDepartmentT",function(request,response){
+  response.render("Teacher/ChooseDepartmentT.ejs")
+})
+//Рейтинг викладачів на певному факультеті
+app.get("/RatingTeachersT",function(request,response){
+  var department = request.query.department;
+  response.render("Teacher/RatingTeachersT.ejs",{
+    department:department
+  })
+})
+
 
 //Предмети викладача
 app.get("/SubjectsT",function(request,response){

@@ -72,7 +72,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 if(snapshot.val()[i]){
                   j=i+1
                   p=document.getElementById(j+"")
-                  p.innerHTML=j+snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
+                  p.innerHTML=j+". "+snapshot.val()[i].split("|")[0]+"|"+snapshot.val()[i].split("|")[1]+"|викладач - "+snapshot2.val()[snapshot.val()[i].split("|")[0]]["teachers"][convertToKeyLecturePractice(snapshot.val()[i].split("|")[1])]
 
                 }
               }

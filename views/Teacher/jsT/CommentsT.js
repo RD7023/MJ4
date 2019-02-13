@@ -4,7 +4,7 @@ auth.onAuthStateChanged(function(user){
   if (user) {
     var userId = auth.currentUser.uid;
     var database = firebase.database();
-    database.ref("users/teachers/"+userId+"/comments").once("value").then(function(snapshot){
+    database.ref("commentsTeacher/"+userId).once("value").then(function(snapshot){
       var objComments = snapshot.val();
       var arrComments = []
       for (var variable in objComments) {
