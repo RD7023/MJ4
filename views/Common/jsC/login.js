@@ -72,9 +72,7 @@ firebase.auth().onAuthStateChanged(function(user){
                       // ...
 
                       document.cookie = "token="+idToken;
-
-
-                      window.location.replace("http://localhost:3000/HomeT")
+                      window.location.replace("http://localhost:3000/HomeD")
                     }).catch(function(error) {
                       // Handle error
                     });

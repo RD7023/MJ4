@@ -1,4 +1,5 @@
 const express = require('express');
+var schedule = require('node-schedule');
 
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
@@ -370,6 +371,7 @@ function isDean(request,response,next){
         next()
       }
       else {
+        console.log(2);
         response.redirect("/gendalf")
       }
     })
@@ -378,9 +380,12 @@ function isDean(request,response,next){
     // ...
   ).catch(function(error) {
     // Handle error
-  });
+  })
+
   }
-  else {
+  else
+   {
+     console.log(2);
     response.redirect("/gendalf")  }
 }
 
@@ -406,6 +411,10 @@ app.get("/fillSchedule",isDean,function(request,response){
 app.get("/addChair",isDean,function(request,response){
   response.render("Dean/addChair.ejs")
 })
+//Додати факультет
+app.get("/addDepartment",isDean,function(request,response){
+  response.render("Dean/addDepartment.ejs")
+})
 //Визначити список предметів
 app.get("/defineSubjects",isDean,function(request,response){
   response.render("Dean/defineSubjects.ejs")
@@ -430,6 +439,8 @@ app.get("/",function(request,response){
   response.render("Common/determinant.ejs")
 })
 
+
+
 //Гендальф
 app.get("/gendalf",function(request,response){
     response.render("Common/gendalf.ejs")
@@ -437,8 +448,11 @@ app.get("/gendalf",function(request,response){
 
 
 
+//Оновлення викладача місяця
 
+var j = schedule.scheduleJob({hour: 16, minute: 30}, function(){
 
+});
 
 
 

@@ -39,6 +39,11 @@ btnAddChair.addEventListener("click",function(){
   window.location.assign("http://localhost:3000/addChair")
 })
 
+const btnAddDepartment = document.getElementById("btnAddDepartment")
+
+btnAddDepartment.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/addDepartment")
+})
 
 const btnDefineSubjects = document.getElementById("btnDefineSubjects")
 
