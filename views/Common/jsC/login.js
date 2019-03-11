@@ -22,26 +22,72 @@ firebase.auth().onAuthStateChanged(function(user){
     var userId = firebase.auth().currentUser.uid;
     console.log(userId)
     firebase.database().ref('users/'+'students/'+userId).once('value').then(function(snapshot){
-        if(snapshot.val().type == "S")
+        if(snapshot.val())
         {
-        window.location.replace("http://localhost:3000/HomeS")
+          firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            // Send token to your backend via HTTPS
+            // ...
+
+            document.cookie = "token="+idToken;
+
+            // let token = JSON.stringify({ token: idToken});
+            // let request = new XMLHttpRequest();
+            // request.open("GET", "/HomeS", true);
+            // request.setRequestHeader("Content-Type", "application/json");
+            // console.log(idToken);
+            // request.send(token);
+            window.location.replace("http://localhost:3000/HomeS")
+          }).catch(function(error) {
+            // Handle error
+          });
+        }
+        else {
+
+          firebase.database().ref('users/'+'teachers/'+userId).once('value').then(function(snapshot){
+
+            if(snapshot.val())
+            {
+              firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                // Send token to your backend via HTTPS
+                // ...
+
+                document.cookie = "token="+idToken;
+
+                // let token = JSON.stringify({ token: idToken});
+                // let request = new XMLHttpRequest();
+                // request.open("GET", "/HomeS", true);
+                // request.setRequestHeader("Content-Type", "application/json");
+                // console.log(idToken);
+                // request.send(token);
+                window.location.replace("http://localhost:3000/HomeT")
+              }).catch(function(error) {
+                // Handle error
+              });
+            }
+            else{
+              firebase.database().ref('users/'+'deans/'+userId).once('value').then(function(snapshot){
+                if(snapshot.val())
+                {    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                      // Send token to your backend via HTTPS
+                      // ...
+
+                      document.cookie = "token="+idToken;
+
+
+                      window.location.replace("http://localhost:3000/HomeT")
+                    }).catch(function(error) {
+                      // Handle error
+                    });
+                }
+                })
+            }
+            })
+
         }
 
-      })
-    firebase.database().ref('users/'+'teachers/'+userId).once('value').then(function(snapshot){
 
-      if(snapshot.val().type == "T")
-      {
-      window.location.replace("http://localhost:3000/HomeT")
+      })
+
+
       }
-      })
-    firebase.database().ref('users/'+'deans/'+userId).once('value').then(function(snapshot){
-
-      if(snapshot.val().type == "D")
-      {
-      window.location.replace("http://localhost:3000/HomeD")
-      }
-
-      })
-    }
-})
+    })

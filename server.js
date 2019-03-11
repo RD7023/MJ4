@@ -1,6 +1,7 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
 
 //Initialize Firebase
 const admin = require('firebase-admin');
@@ -15,6 +16,8 @@ var firebaseAdmin = admin.initializeApp({
 const app = express();
 
 
+
+
 //Set view engine
 app.set("view engine","ejs")
 
@@ -27,6 +30,7 @@ app.set("views",__dirname+'/views')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
+app.use(cookieParser())
 
 
 //Реєстрація
@@ -66,11 +70,41 @@ app.get("/login",function(request,response){
 
 
 
+//Перевіряч студента
+function isStudent(request,response,next){
 
+  idToken = request.cookies['token']
+  if(idToken){
+  admin.auth().verifyIdToken(idToken)
+  .then(function(decodedToken) {
+    var uid = decodedToken.uid;
+    var db = admin.database();
+    var ref = db.ref("users/students/"+uid);
+    ref.on("value",function(snapshot){
+      if(snapshot.val()){
+        console.log(uid)
+        console.log("Success");
+        next()
+
+      }
+      else {
+        response.redirect("/gendalf")
+      }
+    })
+
+    }
+    // ...
+  ).catch(function(error) {
+    // Handle error
+  });
+  }
+  else {
+    response.redirect("/gendalf")  }
+}
 
 //Дім Студента
-app.get("/HomeS",function(request,response){
-  response.render("Student/HomeS.ejs")
+app.get("/HomeS",isStudent,function(request,response){
+    response.render("Student/HomeS.ejs")
 })
 
 function translateDayToUkrainian(day) {
@@ -93,11 +127,12 @@ function translateDayToUkrainian(day) {
 }
 
 //Розклад Студента
-app.get("/ScheduleChooseDay",function(request,response){
+app.get("/ScheduleChooseDay",isStudent,function(request,response){
+
   response.render("Student/ScheduleChooseDay.ejs")
 })
 
-app.get("/Schedule-Monday",function(request,response){
+app.get("/Schedule-Monday",isStudent,function(request,response){
   const choosedDay ="Monday";
   response.render("Student/ChoosedDay.ejs",{
     day: translateDayToUkrainian(choosedDay)
@@ -105,28 +140,28 @@ app.get("/Schedule-Monday",function(request,response){
 
 })
 
-app.get("/Schedule-Tuesday",function(request,response){
+app.get("/Schedule-Tuesday",isStudent,function(request,response){
   const choosedDay ="Tuesday";
   response.render("Student/ChoosedDay.ejs",{
     day: translateDayToUkrainian(choosedDay)
   })
 })
 
-app.get("/Schedule-Wednesday",function(request,response){
+app.get("/Schedule-Wednesday",isStudent,function(request,response){
   const choosedDay ="Wednesday";
   response.render("Student/ChoosedDay.ejs",{
     day: translateDayToUkrainian(choosedDay)
   })
 })
 
-app.get("/Schedule-Thursday",function(request,response){
+app.get("/Schedule-Thursday",isStudent,function(request,response){
   const choosedDay ="Thursday";
   response.render("Student/ChoosedDay.ejs",{
     day: translateDayToUkrainian(choosedDay)
   })
 })
 
-app.get("/Schedule-Friday",function(request,response){
+app.get("/Schedule-Friday",isStudent,function(request,response){
   const choosedDay ="Friday";
   response.render("Student/ChoosedDay.ejs",{
     day: translateDayToUkrainian(choosedDay)
@@ -134,32 +169,32 @@ app.get("/Schedule-Friday",function(request,response){
 })
 
 //Викладачі студента
-app.get("/TeachersS",function(request,response){
+app.get("/TeachersS",isStudent,function(request,response){
   response.render("Student/TeachersS.ejs")
 })
 //Вибраний викладач студента
-app.get("/ChoosedTeacher",function(request,response){
+app.get("/ChoosedTeacher",isStudent,function(request,response){
 
   response.render("Student/ChoosedTeacher.ejs")
 })
 //Tоп викладачів студента
-app.get("/TopTeachers",function(request,response){
+app.get("/TopTeachers",isStudent,function(request,response){
   response.render("Student/TopTeachers.ejs")
 })
 
 //Предмети студента
-app.get("/SubjectsS",function(request,response){
+app.get("/SubjectsS",isStudent,function(request,response){
   response.render("Student/SubjectsS.ejs")
 })
 //Вибраний предмет студента
-app.get("/ChoosedSubject",function(request,response){
+app.get("/ChoosedSubject",isStudent,function(request,response){
   var sbjName = request.query.subjectName;
   response.render("Student/ChoosedSubject.ejs",{
     subjectName:sbjName
   })
 })
 //Вибране завдання студента
-app.get("/ChoosedTask",function(request,response){
+app.get("/ChoosedTask",isStudent,function(request,response){
   var sbjName = request.query.subject;
   response.render("Student/ChoosedTask.ejs",{
     subject:sbjName
@@ -167,14 +202,14 @@ app.get("/ChoosedTask",function(request,response){
 })
 
 //Вибране оголошення студента
-app.get("/ChoosedAnn",function(request,response){
+app.get("/ChoosedAnn",isStudent,function(request,response){
   var sbjName = request.query.subject;
   response.render("Student/ChoosedAnn.ejs",{
     subject:sbjName
   })
 })
 //Оцінки студента
-app.get("/MarksS",function(request,response){
+app.get("/MarksS",isStudent,function(request,response){
   var sbjName = request.query.subject;
   response.render("Student/MarksS.ejs",{
     subject:sbjName
@@ -187,24 +222,53 @@ app.get("/MarksS",function(request,response){
 
 
 
+function isTeacher(request,response,next){
 
+  idToken = request.cookies['token']
+  if(idToken){
+  admin.auth().verifyIdToken(idToken)
+  .then(function(decodedToken) {
+    var uid = decodedToken.uid;
+    var db = admin.database();
+    var ref = db.ref("users/teachers/"+uid);
+    ref.on("value",function(snapshot){
+      if(snapshot.val()){
+        console.log(uid)
+        console.log("Success");
+        next()
+
+      }
+      else {
+        response.redirect("/gendalf")
+      }
+    })
+
+    }
+    // ...
+  ).catch(function(error) {
+    // Handle error
+  });
+  }
+  else {
+    response.redirect("/gendalf")  }
+}
 
 
 //Дім викладача
-app.get("/HomeT",function(request,response){
+app.get("/HomeT",isTeacher,function(request,response){
   response.render("Teacher/HomeT.ejs")
 })
 //Відгуки про викладача
-app.get("/CommentsT",function(request,response){
+app.get("/CommentsT",isTeacher,function(request,response){
   response.render("Teacher/CommentsT.ejs")
 })
 
 //Рейтинг викладачів =>вибрати факультет
-app.get("/ChooseDepartmentT",function(request,response){
+app.get("/ChooseDepartmentT",isTeacher,function(request,response){
   response.render("Teacher/ChooseDepartmentT.ejs")
 })
 //Рейтинг викладачів на певному факультеті
-app.get("/RatingTeachersT",function(request,response){
+app.get("/RatingTeachersT",isTeacher,function(request,response){
   var department = request.query.department;
   response.render("Teacher/RatingTeachersT.ejs",{
     department:department
@@ -213,11 +277,11 @@ app.get("/RatingTeachersT",function(request,response){
 
 
 //Предмети викладача
-app.get("/SubjectsT",function(request,response){
+app.get("/SubjectsT",isTeacher,function(request,response){
   response.render("Teacher/SubjectsT.ejs")
 })
 //Вибраний предмет викладача
-app.get("/ChoosedSubjectT",function(request,response){
+app.get("/ChoosedSubjectT",isTeacher,function(request,response){
   var subjectName = request.query.choosedSubject;
   var academicUnit = request.query.academicUnit;
   response.render("Teacher/ChoosedSubjectT.ejs",{
@@ -226,7 +290,7 @@ app.get("/ChoosedSubjectT",function(request,response){
   })
 })
 //Вибраний предмет викладача => надати завдання
-app.get("/GiveTaskT",function(request,response){
+app.get("/GiveTaskT",isTeacher,function(request,response){
   var subject = request.query.subject;
   var group = request.query.group;
   var speciality = request.query.speciality;
@@ -239,7 +303,7 @@ app.get("/GiveTaskT",function(request,response){
   })
 })
 //Вибраний предмет викладача => залишити оголошення
-app.get("/LeftAnnT",function(request,response){
+app.get("/LeftAnnT",isTeacher,function(request,response){
   var subject = request.query.subject;
   var group = request.query.group;
   var speciality = request.query.speciality;
@@ -251,34 +315,9 @@ app.get("/LeftAnnT",function(request,response){
     department:department
   })
 })
-//Вибраний предмет викладача => залишити оголошення
-app.get("/LeftAnnT",function(request,response){
-  var subject = request.query.subject;
-  var group = request.query.group;
-  var speciality = request.query.speciality;
-  var department = request.query.department;
-  response.render("Teacher/LeftAnnT.ejs",{
-    subject:subject,
-    group:group,
-    speciality:speciality,
-    department:department
-  })
-})
-//Вибраний предмет викладача => залишити оголошення
-app.get("/LeftAnnT",function(request,response){
-  var subject = request.query.subject;
-  var group = request.query.group;
-  var speciality = request.query.speciality;
-  var department = request.query.department;
-  response.render("Teacher/LeftAnnT.ejs",{
-    subject:subject,
-    group:group,
-    speciality:speciality,
-    department:department
-  })
-})
+
 //Вибраний предмет викладача => поставити оцінку
-app.get("/SetMarksT",function(request,response){
+app.get("/SetMarksT",isTeacher,function(request,response){
   var subject = request.query.subject;
   var group = request.query.group;
   var speciality = request.query.speciality;
@@ -292,7 +331,7 @@ app.get("/SetMarksT",function(request,response){
 })
 
 //Вибраний предмет викладача => поставити оцінку => вибраний вид тестування
-app.get("/ChoosedTestT",function(request,response){
+app.get("/ChoosedTestT",isTeacher,function(request,response){
   var testNumber = Number(request.query.infoToSend.split("|")[1])+1;
   if(isNaN(testNumber)){
     var testName = request.query.name
@@ -315,40 +354,68 @@ app.get("/ChoosedTestT",function(request,response){
 
 
 
+function isDean(request,response,next){
 
+  idToken = request.cookies['token']
+  if(idToken){
+  admin.auth().verifyIdToken(idToken)
+  .then(function(decodedToken) {
+    var uid = decodedToken.uid;
+    var db = admin.database();
+    var ref = db.ref("users/deans/"+uid);
+    ref.on("value",function(snapshot){
+      if(snapshot.val()){
+        console.log(uid)
+        console.log("Success");
+        next()
+      }
+      else {
+        response.redirect("/gendalf")
+      }
+    })
+
+    }
+    // ...
+  ).catch(function(error) {
+    // Handle error
+  });
+  }
+  else {
+    response.redirect("/gendalf")  }
+}
 
 
 
 //Дім декана
-app.get("/HomeD",function(request,response){
+app.get("/HomeD",isDean,function(request,response){
   response.render("Dean/HomeD.ejs")
 })
 //Додати студента
-app.get("/addStudent",function(request,response){
+app.get("/addStudent",isDean,function(request,response){
   response.render("Dean/addStudent.ejs")
 })
 //Додати викладача
-app.get("/addTeacher",function(request,response){
+app.get("/addTeacher",isDean,function(request,response){
   response.render("Dean/addTeacher.ejs")
 })
 //Заповнити розклад
-app.get("/fillSchedule",function(request,response){
+app.get("/fillSchedule",isDean,function(request,response){
   response.render("Dean/fillSchedule.ejs")
 })
 //Додати кафедру
-app.get("/addChair",function(request,response){
+app.get("/addChair",isDean,function(request,response){
   response.render("Dean/addChair.ejs")
 })
 //Визначити список предметів
-app.get("/defineSubjects",function(request,response){
+app.get("/defineSubjects",isDean,function(request,response){
   response.render("Dean/defineSubjects.ejs")
 })
 //Визначити список викладачів
-app.get("/defineTeachers",function(request,response){
+app.get("/defineTeachers",isDean,function(request,response){
   response.render("Dean/defineTeachers.ejs")
 })
 //Визначити час канікул
-app.get("/defineHollidays",function(request,response){
+app.get("/defineHollidays",isDean,function(request,response){
   response.render("Dean/defineHollidays.ejs")
 })
 
@@ -362,6 +429,18 @@ app.get("/defineHollidays",function(request,response){
 app.get("/",function(request,response){
   response.render("Common/determinant.ejs")
 })
+
+//Гендальф
+app.get("/gendalf",function(request,response){
+    response.render("Common/gendalf.ejs")
+})
+
+
+
+
+
+
+
 
 
 app.listen(3000)

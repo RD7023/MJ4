@@ -3,6 +3,7 @@ firebase.auth().onAuthStateChanged(function(user){
   console.log(firebase.auth().currentUser.uid);
   }
   else{
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     location.replace("http://localhost:3000/login");
   }
 })
