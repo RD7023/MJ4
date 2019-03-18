@@ -14,6 +14,12 @@ firebase.auth().onAuthStateChanged(function(user){
          window.location.assign("http://localhost:3000/TopTeachers?"+department.replace(" ","_"))
        })
 
+       var btnTeacherOfTheMonth = document.getElementById('btnTeacherOfTheMonth')
+       btnTeacherOfTheMonth.addEventListener('click',function(){
+
+         window.location.assign("http://localhost:3000/TeacherOfTheMonth?"+department.replace(" ","_"))
+       })
+
        firebase.database().ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Teachers").once("value").then(function(snapshot){
          var teachersDiv = document.getElementById("Teachers");
          var counter = 0;

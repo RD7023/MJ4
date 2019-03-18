@@ -183,6 +183,11 @@ app.get("/TopTeachers",isStudent,function(request,response){
   response.render("Student/TopTeachers.ejs")
 })
 
+//Викладач місяця студента
+app.get("/TeacherOfTheMonth",isStudent,function(request,response){
+  response.render("Student/TeacherOfTheMonth.ejs")
+})
+
 //Предмети студента
 app.get("/SubjectsS",isStudent,function(request,response){
   response.render("Student/SubjectsS.ejs")
@@ -448,10 +453,41 @@ app.get("/gendalf",function(request,response){
 
 
 
-//Оновлення викладача місяця
+//визначення та оновлення викладача місяця
 
-var j = schedule.scheduleJob({hour: 16, minute: 30}, function(){
+var j = schedule.scheduleJob({date:1}, function(){
+  var db = admin.database();
+  var ref = db.ref("departments/list");
+  ref.on("value",function(snapshot){
+    var departmentsList = snapshot.val()
+    for (var department in departmentsList) {
+      if (departmentsList.hasOwnProperty(department)) {
+        var refDepartment = db.ref("departments/"+department+"/teachers");
+        refDepartment.on("value",function(snapshot2){
+          var objTeachers = snapshot2.val();
 
+          var minRating=0;
+          var minRatingId="";
+          for (var teacher in objTeachers) {
+            if (objTeachers.hasOwnProperty(teacher)) {
+                console.log( objTeachers[teacher]["id"]);
+              if (objTeachers[teacher]["allTimeRating"]<minRating) {
+                minRating=objTeachers[teacher]["allTimeRating"];
+                minRatingId=objTeachers[teacher]["id"]
+
+              }
+
+            }
+          }
+        refTeacherOfMonth  = db.ref("departments/"+department+"/teacher of the month");
+        refTeacherOfMonth.set({
+          allTimeRating: minRating,
+          id:minRatingId
+        })
+        })
+      }
+    }
+  })
 });
 
 
