@@ -17,8 +17,6 @@ var firebaseAdmin = admin.initializeApp({
 const app = express();
 
 
-
-
 //Set view engine
 app.set("view engine","ejs")
 
@@ -432,7 +430,22 @@ app.get("/defineTeachers",isDean,function(request,response){
 app.get("/defineHollidays",isDean,function(request,response){
   response.render("Dean/defineHollidays.ejs")
 })
-
+//Переглянути список студентів
+app.get("/StudentsD",isDean,function(request,response){
+  response.render("Dean/StudentsD.ejs")
+})
+//Переглянути список студентів => Вибраний факультет
+app.get("/ChoosedDepartmentD",isDean,function(request,response){
+  response.render("Dean/ChoosedDepartmentD.ejs")
+})
+//Переглянути список студентів => Вибраний факультет=> Вибрана спеціальність
+app.get("/ChoosedSpecialityD",isDean,function(request,response){
+  response.render("Dean/ChoosedSpecialityD.ejs")
+})
+//Переглянути список студентів => Вибраний факультет=> Вибрана спеціальність
+app.get("/ChoosedGroupD",isDean,function(request,response){
+  response.render("Dean/ChoosedGroupD.ejs")
+})
 
 
 
@@ -455,7 +468,7 @@ app.get("/gendalf",function(request,response){
 
 //визначення та оновлення викладача місяця
 
-var j = schedule.scheduleJob({date:1}, function(){
+var defineTeacherOfTheMonth = schedule.scheduleJob({date:1}, function(){
   var db = admin.database();
   var ref = db.ref("departments/list");
   ref.on("value",function(snapshot){
