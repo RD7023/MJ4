@@ -1,3 +1,5 @@
+
+
 const txtEmail = document.getElementById("txtEmail");
 const txtPassword = document.getElementById("txtPassword");
 const btnLogin = document.getElementById("btnLogin");
@@ -5,7 +7,7 @@ const btnSignUp = document.getElementById("btnSignUp");
 
 
 btnSignUp.addEventListener("click",function(){
-  window.location.assign("http://localhost:3000/whoU");
+  window.location.assign("http://localhost:3000/signUpS");
 })
 
 

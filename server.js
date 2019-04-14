@@ -1,5 +1,7 @@
 const express = require('express');
 var schedule = require('node-schedule');
+const fs = require('fs');
+
 
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
@@ -469,7 +471,7 @@ app.get("/gendalf",function(request,response){
 //визначення та оновлення викладача місяця
 
 var defineTeacherOfTheMonth = schedule.scheduleJob({date:1}, function(){
-  var db = admin.database();
+  db = admin.database();
   var ref = db.ref("departments/list");
   ref.on("value",function(snapshot){
     var departmentsList = snapshot.val()
@@ -507,3 +509,27 @@ var defineTeacherOfTheMonth = schedule.scheduleJob({date:1}, function(){
 
 
 app.listen(3000)
+
+
+// fs.readFile("викладачі2.txt",'utf-8', function(err, buf) {
+//   console.log(23);
+//   // console.log(buf.toString());
+//   console.log(buf[123])
+// });
+
+
+
+// var readLine = require('fs-readline');
+//
+// var rl = readLine('викладачі2.txt');
+// rl.on('line', function (line, idx) {
+//   lineArr=line.split("\t")
+//   db = admin.database();
+//   if(lineArr[0]!='')
+//   {db.ref("teachers/"+lineArr[0]).set({
+//     timesMarked:0,
+//     sumOfMarks:0
+//   })
+//   }
+//   console.log(idx, lineArr[0]);
+// });
