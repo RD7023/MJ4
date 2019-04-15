@@ -528,7 +528,8 @@ app.listen(3000)
 //   if(lineArr[0]!='')
 //   {db.ref("teachers/"+lineArr[0]).set({
 //     timesMarked:0,
-//     sumOfMarks:0
+//     sumOfMarks:0,
+//     totalMark:-1
 //   })
 //   }
 //   console.log(idx, lineArr[0]);

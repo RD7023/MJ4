@@ -33,3 +33,11 @@ btnTeachers.addEventListener('click',function(){
 // btnSubjects.addEventListener('click',function(){
 //   location.assign("http://localhost:3000/SubjectsS")
 // })
+
+
+var db = firebase.database();
+var ref = db.ref('teachers').orderByChild('totalMark').limitToFirst(50);
+ref.on('value',function(snapshot){
+  var obj = snapshot.val();
+  
+})
