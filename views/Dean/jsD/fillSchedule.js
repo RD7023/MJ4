@@ -1,4 +1,9 @@
 
+Array.prototype.unique = function() {
+  return this.filter(function (value, index, self) {
+    return self.indexOf(value) === index;
+  });
+}
 
 function getElementsArrayValues(array) {
   arrVal=[];
@@ -51,13 +56,57 @@ btnConfirm.addEventListener("click",function(){
   const speciality = document.getElementById('txtSpeciality').value;
   const group = document.getElementById('txtGroup').value;
 
-  database.ref("departments/"+department+"/specialities/"+speciality+"/groups/"+group+"/Schedule").set({
+  database.ref("faculties/"+department+"/groups/"+group+"/Schedule").set({
     1: objSched.Monday,
     2: objSched.Tuesday,
     3: objSched.Wednesday,
     4: objSched.Thursday,
     5: objSched.Friday
   }).then(function(){
+    arrAllTeachers=[];
+    for (var day in objSched) {
+      if (objSched.hasOwnProperty(day)) {
+        for (var num in objSched[day]) {
+          if (objSched[day].hasOwnProperty(num)) {
+            // console.log(objSched[day][num]);
+            arrLessons=objSched[day][num];
+            for (var i = 0; i < arrLessons.length; i++) {
+              arrTeachers=arrLessons[i].split('|')
+              console.log(arrLessons[i]);
+              arrTeachers.shift()
+              arrTeachers.shift()
+              for (var j = 0; j < arrTeachers.length; j++){
+                arrAllTeachers.push(arrTeachers[j])
+              }
+              }
+            }
+          }
+        }
+      }
+      arrAllTeachers=arrAllTeachers.unique()
+      objAllTeachers={}
+      for (var i = 0; i < arrAllTeachers.length; i++) {
+        objAllTeachers[arrAllTeachers[i]]=true;
+      }
+      database.ref("faculties/"+department+"/groups/"+group+"/Teachers").set({
+        list:  objAllTeachers
+      }).then(function(){
+        console.log('23');
+        console.log(objAllTeachers);
+        for (var key in objAllTeachers) {
+          if (objAllTeachers.hasOwnProperty(key)) {
+            var updates = {};
+            updates['faculties/'+department+"/Teachers/"+key] = true;
+            firebase.database().ref().update(updates)
+          }
+        }
+
+
+
+
+
+
+    alert("Харош Саня!");
     //Рахуємо кількість практичних в семестрі
     database.ref('term').once('value').then(function (snapshot) {
       var numbWeeks = snapshot.val().weeks;
@@ -156,8 +205,8 @@ btnConfirm.addEventListener("click",function(){
 
           })
         })
+      })
 
       }
     )
-  }
-  )
+  })

@@ -7,7 +7,7 @@ const btnSignUp = document.getElementById("btnSignUp");
 
 
 btnSignUp.addEventListener("click",function(){
-  window.location.assign("http://localhost:3000/signUpS");
+  window.location.assign("http://localhost:3000/signUpD");
 })
 
 
