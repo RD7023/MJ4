@@ -76,7 +76,7 @@ btnConfirm.addEventListener("click",function(){
               arrTeachers.shift()
               arrTeachers.shift()
               for (var j = 0; j < arrTeachers.length; j++){
-                arrAllTeachers.push(arrTeachers[j])
+                arrAllTeachers.push(arrTeachers[j].replace(/\./g,','))
               }
               }
             }
@@ -90,16 +90,20 @@ btnConfirm.addEventListener("click",function(){
       }
       database.ref("faculties/"+department+"/groups/"+group+"/Teachers").set({
         list:  objAllTeachers
-      }).then(function(){
-        console.log('23');
-        console.log(objAllTeachers);
-        for (var key in objAllTeachers) {
-          if (objAllTeachers.hasOwnProperty(key)) {
-            var updates = {};
-            updates['faculties/'+department+"/Teachers/"+key] = true;
-            firebase.database().ref().update(updates)
-          }
-        }
+      })
+      // .then(function(){
+      //   console.log('23');
+      //   console.log(objAllTeachers);
+      //   for (var key in objAllTeachers) {
+      //     if (objAllTeachers.hasOwnProperty(key)) {
+      //       var updates = {};
+      //       updates['faculties/'+department+"/Teachers/"+key] = true;
+      //       var updates2={}
+      //       updates2['Teachers/list/'+key]=true
+      //       firebase.database().ref().update(updates)
+      //       firebase.database().ref().update(updates2)
+      //     }
+      //   }
 
 
 

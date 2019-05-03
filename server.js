@@ -127,46 +127,61 @@ function translateDayToUkrainian(day) {
   }
 }
 
-//Розклад Студента
-app.get("/ScheduleChooseDay",isStudent,function(request,response){
+// //Розклад Студента
+// app.get("/ScheduleChooseDay",isStudent,function(request,response){
+//
+//   response.render("Student/ScheduleChooseDay.ejs")
+// })
+//
+// app.get("/Schedule-Monday",isStudent,function(request,response){
+//   const choosedDay ="Monday";
+//   response.render("Student/ChoosedDay.ejs",{
+//     day: translateDayToUkrainian(choosedDay)
+//   })
+//
+// })
+//
+// app.get("/Schedule-Tuesday",isStudent,function(request,response){
+//   const choosedDay ="Tuesday";
+//   response.render("Student/ChoosedDay.ejs",{
+//     day: translateDayToUkrainian(choosedDay)
+//   })
+// })
+//
+// app.get("/Schedule-Wednesday",isStudent,function(request,response){
+//   const choosedDay ="Wednesday";
+//   response.render("Student/ChoosedDay.ejs",{
+//     day: translateDayToUkrainian(choosedDay)
+//   })
+// })
+//
+// app.get("/Schedule-Thursday",isStudent,function(request,response){
+//   const choosedDay ="Thursday";
+//   response.render("Student/ChoosedDay.ejs",{
+//     day: translateDayToUkrainian(choosedDay)
+//   })
+// })
+//
+// app.get("/Schedule-Friday",isStudent,function(request,response){
+//   const choosedDay ="Friday";
+//   response.render("Student/ChoosedDay.ejs",{
+//     day: translateDayToUkrainian(choosedDay)
+//   })
+// })
 
-  response.render("Student/ScheduleChooseDay.ejs")
+
+//Вибрати предмет
+app.get("/ChooseLesson",isStudent,function(request,response){
+  response.render("Student/ChooseLesson.ejs")
 })
-
-app.get("/Schedule-Monday",isStudent,function(request,response){
-  const choosedDay ="Monday";
-  response.render("Student/ChoosedDay.ejs",{
-    day: translateDayToUkrainian(choosedDay)
-  })
-
-})
-
-app.get("/Schedule-Tuesday",isStudent,function(request,response){
-  const choosedDay ="Tuesday";
-  response.render("Student/ChoosedDay.ejs",{
-    day: translateDayToUkrainian(choosedDay)
-  })
-})
-
-app.get("/Schedule-Wednesday",isStudent,function(request,response){
-  const choosedDay ="Wednesday";
-  response.render("Student/ChoosedDay.ejs",{
-    day: translateDayToUkrainian(choosedDay)
-  })
-})
-
-app.get("/Schedule-Thursday",isStudent,function(request,response){
-  const choosedDay ="Thursday";
-  response.render("Student/ChoosedDay.ejs",{
-    day: translateDayToUkrainian(choosedDay)
-  })
-})
-
-app.get("/Schedule-Friday",isStudent,function(request,response){
-  const choosedDay ="Friday";
-  response.render("Student/ChoosedDay.ejs",{
-    day: translateDayToUkrainian(choosedDay)
-  })
+//Оцінити викладача
+app.get("/Rate",isStudent,function(request,response){
+  var teacher = request.query.teacher.replace(/,/g,".");
+  var lesson = request.query.lesson;
+  response.render("Student/Rate.ejs",{
+    teacher:teacher,
+    lesson:lesson
+  });
 })
 
 //Викладачі студента

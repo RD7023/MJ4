@@ -1,6 +1,27 @@
+// var db = firebase.database();
+// db.ref('users/students/'+firebase.auth().currentUser.uid).once("value",function(snapshot){
+//   faculty = snapshot.val().faculty;
+//   group = snapshot.val().group;
+// }).then(function(){
+//   const btnRate = document.getElementById('btnRate')
+//   btnRate.addEventListener('click',function(){
+//     location.assign("http://localhost:3000/ChooseLesson?faculty="+faculty+"&group="+group)
+//   })
+// })
+
+
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
-  console.log(firebase.auth().currentUser.uid);
+    db = firebase.database();
+    db.ref('users/students/'+firebase.auth().currentUser.uid).once("value",function(snapshot){
+      faculty = snapshot.val().faculty;
+      group = snapshot.val().group;
+    }).then(function(){
+      const btnRate = document.getElementById('btnRate')
+      btnRate.addEventListener('click',function(){
+        location.assign("http://localhost:3000/ChooseLesson?faculty="+faculty+"&group="+group)
+      })
+    })
   }
   else{
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -21,11 +42,7 @@ logoutBtn.addEventListener('click',function(){
 // })
 
 
-const btnTeachers = document.getElementById('btnTeachers')
 
-btnTeachers.addEventListener('click',function(){
-  location.assign("http://localhost:3000/TeachersS")
-})
 
 
 // const btnSubjects = document.getElementById('btnSubjects')
@@ -35,9 +52,10 @@ btnTeachers.addEventListener('click',function(){
 // })
 
 
-var db = firebase.database();
-var ref = db.ref('teachers').orderByChild('totalMark').limitToFirst(50);
+
+
+var ref = firebase.database().ref('Teachers').orderByChild('rating/current/overAll').limitToFirst(10);
 ref.on('value',function(snapshot){
   var obj = snapshot.val();
-  
+  console.log(obj);
 })
