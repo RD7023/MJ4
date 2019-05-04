@@ -4,10 +4,14 @@ const txtEmail = document.getElementById("txtEmail");
 const txtPassword = document.getElementById("txtPassword");
 const btnLogin = document.getElementById("btnLogin");
 const btnSignUp = document.getElementById("btnSignUp");
-
+const btnForgotPassword = document.getElementById('btnForgotPassword')
 
 btnSignUp.addEventListener("click",function(){
   window.location.assign("http://localhost:3000/signUpD");
+})
+
+btnForgotPassword.addEventListener("click",function(){
+  window.location.assign("http://localhost:3000/forgotPassword");
 })
 
 

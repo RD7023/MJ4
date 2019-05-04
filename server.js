@@ -63,7 +63,11 @@ app.get("/login",function(request,response){
   response.render("Common/login.ejs")
 })
 
+//Відновлення пароля
+app.get("/forgotPassword",function(request,response){
 
+  response.render("Common/forgotPassword.ejs")
+})
 
 
 
